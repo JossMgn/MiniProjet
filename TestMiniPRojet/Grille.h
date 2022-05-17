@@ -7,7 +7,8 @@ using namespace std;
 
 class Grille
 {
-	vector<vector<Cellule>> tabCellule_[10][10];
+	Cellule tabCellule_[10][10];
+
 
 public:
 

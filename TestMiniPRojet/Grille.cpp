@@ -11,3 +11,9 @@ Grille::Grille()
 	}
 }
 
+void Grille::setCellule(int i, int j, string couleur)
+{
+	tabCellule_[i][j].setCouleur(couleur);
+}
+
+void Grille::actualiserCellule(int i, int j) const
