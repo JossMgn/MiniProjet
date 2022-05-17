@@ -15,5 +15,5 @@ public:
 	Grille();
 
 	void setCellule(int i, int j, string couleur);
-	void actualiserCellule(int i, int j) const;
+	void actualiserCellule(int i, int j);
 };
