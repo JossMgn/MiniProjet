@@ -92,7 +92,7 @@ void Grille::actualiserCellule(int i, int j)
 	else if (i == 9 && j > 0 && j < 9)
 	{
 		EstVert = 0;
-		for (int k = i-1; k < i + 1; k++)
+		for (int k = i - 1; k < i + 1; k++)
 		{
 			for (int l = j - 1; j < j + 2; j++)
 			{
@@ -108,6 +108,7 @@ void Grille::actualiserCellule(int i, int j)
 		if (tabCellule_[i][j].getCouleur() == "Vert")
 			EstVert--;
 	}
+	//Cas particuliers: les coins
 	else if (i == 0 && j == 0 )
 	{
 		EstVert = 0;
@@ -192,7 +193,7 @@ void Grille::actualiserCellule(int i, int j)
 	}
 
 	}
-
+	//Code la couleur
 	if (EstVert < 2 || EstVert>3)
 	{
 		if (tabCellule_[i][j].getCouleur() == "Vert")
