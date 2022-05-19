@@ -6,15 +6,13 @@
 #include "menu.h"
 
 
-class MenuMoyenne : public Menu
+class MenuDepart : public Menu
 {
-	Semestre* semestre_;
+	
 public:
-	MenuMoyenne(Semestre& s);
+	MenuDepart();
 	void executerOption(const string& nom, bool& fin);
-	void SaisirMatieres();
-	void SaisirNotes();
-	void CalculMoyenne();
+	
 };
 
 

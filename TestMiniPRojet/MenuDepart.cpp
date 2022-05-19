@@ -1,6 +1,7 @@
 #include <iostream>
 #include <cstdlib>
 #include "MenuDepart.h"
+#include "MenuLancer.h"
 
 using namespace std;
 
@@ -17,7 +18,8 @@ using namespace std;
 
 void MenuDepart::executerOption(const string& nom, bool& fin)
 {
-	if (nom == "nvlpartie") SaisirMatieres();
+	MenuLancer m();
+	if (nom == "nvlpartie") MenuLancer();
 	if (nom == "chargpartie") SaisirNotes();
 
 	if (nom != "calculmoyenne" && nom != "saisirnote" && nom != "saisirmatiere") Menu::executerOption(nom, fin);
