@@ -3,6 +3,11 @@
 #include "Plateau.h"
 using namespace std;
 
+Plateau::~Plateau()
+{
+	delete grille_;
+}
+
 void Plateau::afficherGrille(sf::RenderWindow& window)
 {
 	std::vector<sf::RectangleShape> lines;
@@ -39,6 +44,71 @@ void Plateau::rectangle(sf::RenderWindow& window, size_t i, size_t j)
 	r1.setFillColor(sf::Color::Green);
 	// Affichage
 	window.draw(r1);
+}
+
+void Plateau::executer(Grille* g)
+{
+	// Création de la fenêtre
+	sf::RenderWindow window(sf::VideoMode(300, 300), "Test Grille");
+	// Tableau de jeu
+	int tab[10][10];
+	for (size_t i = 0; i < 10; i++)
+		for (size_t j = 0; j < 10; j++)
+			tab[i][j] = 0;
+	// Compte le nombre de cases vide
+	int nbLeft = 100;
+	// Boucle principale
+	while (window.isOpen())
+	{
+		sf::Event event;
+		while (window.pollEvent(event)) {
+			// Demande de fermeture de la fenêtre
+			if (event.type == sf::Event::Closed)
+				window.close();
+			// Appui sur le bouton gauche
+			if ((event.type == sf::Event::MouseButtonPressed)
+				&& (event.mouseButton.button == sf::Mouse::Left)) {
+
+				// Position de la souris dans par rapport à la fenêtre
+				sf::Vector2i localPosition = sf::Mouse::getPosition(window);
+				// Position de la souris dans le tableau
+				localPosition /= 30;
+				// Affichage console des coordonées
+				//std::cout << localPosition.x << " " << localPosition.y << std::endl;
+				// Si on tombe sur une case vide
+				if (tab[localPosition.x][localPosition.y] == 0) {
+					// On remplie en fonction du tour du joueur 1 = vert et 0 rien
+					tab[localPosition.x][localPosition.y] = 1;
+					g->setCellule(localPosition.x, localPosition.y, "Green");
+					//g->affichertabCellule_();
+					// On met a jour le nombre de cases vides
+					nbLeft--;
+				}
+				else {
+					tab[localPosition.x][localPosition.y] = 0;
+					g->setCellule(localPosition.x, localPosition.y, "White");
+					//g.affichertabCellule_();
+
+					nbLeft++;
+				}
+			}
+		}
+		// On efface la fenêtre (en blanc)
+		window.clear(sf::Color::White);
+		// On affiche la grille
+		afficherGrille(window);
+		// Parcours du tableau
+		for (size_t i = 0; i < 10; i++) {
+			for (size_t j = 0; j < 10; j++) {
+				// Affichage du jeton
+				if (tab[i][j] == 1)
+					rectangle(window, i, j);
+			}
+		}
+		// Mise à jour de la fenêtre
+		window.display();
+	}
+
 }
 
 
