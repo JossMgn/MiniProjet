@@ -3,6 +3,7 @@
 #include <vector>
 #include <string>
 #include "Cellule.h"
+#include <fstream>
 using namespace std;
 
 class Grille
@@ -16,4 +17,6 @@ public:
 
 	void setCellule(int i, int j, string couleur);
 	void actualiserCellule(int i, int j);
+	void sauver(fstream& os);
+	void charger(fstream& is);
 };
