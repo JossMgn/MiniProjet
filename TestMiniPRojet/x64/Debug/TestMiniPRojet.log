@@ -1,6 +1,4 @@
-﻿  Test_plateau.cpp
-C:\Users\jossu\OneDrive\Documents\GitHub\MiniProjet\TestMiniPRojet\Test_plateau.cpp(20,32): warning C4244: 'argument' : conversion de 'int' en 'float', perte possible de données
-C:\Users\jossu\OneDrive\Documents\GitHub\MiniProjet\TestMiniPRojet\Test_plateau.cpp(24,41): warning C4244: 'argument' : conversion de 'int' en 'float', perte possible de données
-C:\Users\jossu\OneDrive\Documents\GitHub\MiniProjet\TestMiniPRojet\Test_plateau.cpp(42,37): warning C4244: 'argument' : conversion de 'size_t' en 'float', perte possible de données
-C:\Users\jossu\OneDrive\Documents\GitHub\MiniProjet\TestMiniPRojet\Test_plateau.cpp(42,24): warning C4244: 'argument' : conversion de 'size_t' en 'float', perte possible de données
+﻿  Plateau.cpp
+C:\Users\jossu\OneDrive\Documents\GitHub\MiniProjet\TestMiniPRojet\Plateau.cpp(60,37): warning C4244: 'argument' : conversion de 'size_t' en 'float', perte possible de données
+C:\Users\jossu\OneDrive\Documents\GitHub\MiniProjet\TestMiniPRojet\Plateau.cpp(60,24): warning C4244: 'argument' : conversion de 'size_t' en 'float', perte possible de données
   TestMiniPRojet.vcxproj -> C:\Users\jossu\OneDrive\Documents\GitHub\MiniProjet\TestMiniPRojet\x64\Debug\TestMiniPRojet.exe

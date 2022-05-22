@@ -6,7 +6,7 @@ int main()
 {
 	Grille* g = new Grille;
 	Plateau p(g);
-	p.executer(g);
+	p.choisirplace(g);
 
 	return 0;
 }

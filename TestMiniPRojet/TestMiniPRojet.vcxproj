@@ -152,7 +152,7 @@
     <ClCompile Include="Cellule.cpp" />
     <ClCompile Include="Grille.cpp" />
     <ClCompile Include="maintest.cpp" />
-    <ClCompile Include="Test_plateau.cpp" />
+    <ClCompile Include="Plateau.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

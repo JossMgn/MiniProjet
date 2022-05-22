@@ -16,6 +16,7 @@ public:
 	Grille();
 
 	void setCellule(int i, int j, string couleur);
+	Cellule getCellule(int i, int j) { return tabCellule_[i][j]; }
 	void actualiserCellule(int i, int j);
 	void sauver(fstream& os);
 	void charger(fstream& is);

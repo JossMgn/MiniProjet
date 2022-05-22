@@ -32,7 +32,7 @@
     <ClCompile Include="Grille.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="Test_plateau.cpp">
+    <ClCompile Include="Plateau.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
     <ClCompile Include="maintest.cpp">
