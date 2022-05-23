@@ -17,8 +17,9 @@ void Grille::setCellule(int i, int j, string couleur)
 }
 
 
-void Grille::actualiserCellule(int i, int j)
+string Grille::actualiserCellule(int i, int j)
 {
+	string Couleur;
 	int EstVert = 0;
 	if (i > 0 && i<9)
 	{
@@ -194,14 +195,18 @@ void Grille::actualiserCellule(int i, int j)
 
 	}
 	//Code la couleur
+	cout << "EstVert: "<<EstVert<<" ";
 	if (EstVert < 2 || EstVert>3)
 	{
 		if (tabCellule_[i][j].getCouleur() == "Vert")
-			tabCellule_[i][j].setCouleur("Rouge");
+			Couleur = "Rouge";
+		else
+			Couleur = "White";
 	}
 	else if (EstVert == 3)
 	{
-		tabCellule_[i][j].setCouleur("Vert");
+		Couleur = "Vert";
 	}
-	
+	cout << Couleur << endl;
+	return Couleur;
 }

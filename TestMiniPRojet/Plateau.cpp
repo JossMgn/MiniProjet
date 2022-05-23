@@ -9,36 +9,6 @@ Plateau::~Plateau()
 	delete grille_;
 }
 
-/*void Plateau::afficherGrille(sf::RenderWindow& window)
-{
-	std::vector<sf::RectangleShape> lines;
-	// Lignes verticales
-
-	for (int i = 0; i <= 17; i++)
-	{
-		if (i < 9) {
-			lines.push_back(sf::RectangleShape(sf::Vector2f(4, 300)));
-			lines[i].setPosition(i * 30 + 28, 0);
-		}
-		else {
-			lines.push_back(sf::RectangleShape(sf::Vector2f(300, 4)));
-			lines[i].setPosition(0, (i - 9) * 30 + 28);
-		}
-	}
-	// Lignes de couleurs noires
-	for (size_t i = 0; i < lines.size(); i++)
-		lines[i].setFillColor(sf::Color::Black); //Donne la couleur de la ligne
-	// Affichage
-	for (size_t i = 0; i < lines.size(); i++)
-		window.draw(lines[i]);
-
-	sf::RectangleShape r2(sf::Vector2f(56, 56));
-	r2.setOrigin(28, 28);
-	r2.setPosition(16*30, 16*30);
-	r2.setFillColor(sf::Color::Blue);
-
-}*/
-
 void Plateau::creerfenetre()
 {
 	sf::RenderWindow window(sf::VideoMode(300, 300), "Test Grille");
@@ -144,11 +114,19 @@ void Plateau::choisirplace(Grille* g)
 					{
 						for (int j = 0; j < 10; j++)
 						{
-							g->actualiserCellule(i, j);
-							if (g->getCellule(i, j).getCouleur() == "Vert")
+							string Couleur;
+							Grille* nvl_g = new Grille;
+							Couleur = g->actualiserCellule(i, j);
+							if (Couleur == "Vert")
+							{
 								Cellule[i][j] = 1;
+								nvl_g->setCellule(i, j, Couleur);
+							}
 							else if (g->getCellule(i, j).getCouleur() == "Rouge")
+							{
 								Cellule[i][j] = 2;
+								nvl_g->setCellule(i, j, Couleur);
+							}
 							else
 								Cellule[i][j] = 0;
 						}
