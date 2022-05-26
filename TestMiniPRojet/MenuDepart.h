@@ -1,16 +1,17 @@
 #pragma once
-#ifndef _MENU_MOYENNE
-#define _MENU_MOYENNE
-
-
+#ifndef _MENUDEPART
+#define _MENUDEPART
+#include "MenuLancer.h"
+#include "Plateau.h"
 #include "menu.h"
 
+class Plateau;
 
 class MenuDepart : public Menu
 {
-	
+	Plateau* p_;
 public:
-	MenuDepart();
+	MenuDepart(Plateau* p);
 	void executerOption(const string& nom, bool& fin);
 	
 };

@@ -1,27 +1,28 @@
 #include <iostream>
 #include <cstdlib>
 #include "MenuDepart.h"
-#include "MenuLancer.h"
+
 
 using namespace std;
 
 
- MenuDepart::MenuDepart() : Menu("Exemple de menu :")
+ MenuDepart::MenuDepart(Plateau * p) : Menu("Exemple de menu :")
 {
-	
+	p_ = p;
 	ajouterOption("aide", "Afficher de l'aide");
-	ajouterOption("nvlpartie", "Lancer une nouvelle partie");
-	ajouterOption("chargpartie", "Charger une partie existante");
+	ajouterOption("Depart", "Lancer la partie");
+	ajouterOption("Pause", "Mettre pause");
+	ajouterOption("pasapas", "Mode pas a pas");
 	
 	ajouterOption("quitter", "Sortir de l'application");
 }
 
 void MenuDepart::executerOption(const string& nom, bool& fin)
 {
-	MenuLancer m();
-	if (nom == "nvlpartie") MenuLancer();
-	if (nom == "chargpartie") SaisirNotes();
-
+	
+	if (nom == "Depart" ) p_->Gameplay();
+	if (nom == "Pause") ;
+	if (nom == "paspapas");
 	if (nom != "calculmoyenne" && nom != "saisirnote" && nom != "saisirmatiere") Menu::executerOption(nom, fin);
 
 }

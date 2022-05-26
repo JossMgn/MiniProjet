@@ -1,5 +1,7 @@
 #include "Plateau.h"
 #include <iostream>
+#include "MenuLancer.h"
+//#include "MenuDepart.h"
 using namespace std;
 
 //Lorsqu'on initialise la grille avec plus de 3 cellules, une erreur se produit ouvrant le header xstring qui stop tout.
@@ -12,7 +14,9 @@ int main()
 {
 	Grille* g = new Grille;
 	Plateau p(g);
-	p.Gameplay();
+	MenuLancer m(&p);
+	m.executer();
+	//p.Gameplay();
 
 
 	return 0;
