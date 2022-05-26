@@ -14,12 +14,15 @@ public:
 	Plateau();
 	~Plateau();
 
-	//void afficherGrille(sf::RenderWindow &window);
 	void rectangle(sf::RenderWindow& window, size_t i, size_t j, int couleur);
 	void ajouterGrille(Grille* g) { grilles_.push_back(g); }
+	void retourDebut();
+	void afficher(sf::RenderWindow &window);
+
+	void debut();
+	void simuler();
 
 	void Gameplay();
-	//void simuler(Grille* g, Grille* precedent);
-	//void initialiserGrille(sf::RenderWindow window);
+
 
 };

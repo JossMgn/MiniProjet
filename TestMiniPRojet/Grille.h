@@ -14,6 +14,7 @@ class Grille
 public:
 
 	Grille();
+	void operator=(const Grille& g);
 
 	void setCellule(int i, int j, string couleur);
 	Cellule getCellule(int i, int j) { return tabCellule_[i][j]; }

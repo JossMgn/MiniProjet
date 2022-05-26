@@ -1,2 +1,4 @@
-﻿  Grille.cpp
+﻿  Plateau.cpp
+C:\Users\jossu\OneDrive\Documents\GitHub\MiniProjet\TestMiniPRojet\Plateau.cpp(56,37): warning C4244: 'argument' : conversion de 'size_t' en 'float', perte possible de données
+C:\Users\jossu\OneDrive\Documents\GitHub\MiniProjet\TestMiniPRojet\Plateau.cpp(56,24): warning C4244: 'argument' : conversion de 'size_t' en 'float', perte possible de données
   TestMiniPRojet.vcxproj -> C:\Users\jossu\OneDrive\Documents\GitHub\MiniProjet\TestMiniPRojet\x64\Debug\TestMiniPRojet.exe
