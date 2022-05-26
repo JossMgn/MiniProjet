@@ -19,26 +19,30 @@ void Grille::setCellule(int i, int j, string couleur)
 
 string Grille::actualiserCellule(int x, int y)
 {
+
 	//cout << "Cellule " << "(" << x << "/" << y << ")" << endl;
 	//Y: ligne, X: colonne
 	int EstVert=0;
 	//cout << "Dans la fonction acutaliserCouleur" << endl;
 	if (x > 0 && x < 10 && y>0 && y < 10)
 	{
-		for (int i = -1; i < 2; i++) {
-			for (int j = -1; j < 2; j++) {
-				if (tabCellule_[x + j][y + i].getCouleur() == "Vert" && i != 0 && j != 0) {
-					EstVert++;
-					//cout << "Cellule x " << x << " y " << y << " est verte" << endl;
-					cout << "Cellule (x+j/y+i): " << x+j << "/" << y+i << endl;
-					cout << "dans if EstVert = " << EstVert << endl;
+		for (int i = -1; i < 2; i++)
+		{
+			for (int j = -1; j < 2; j++)
+			{
+				if (tabCellule_[x + j][y + i].getCouleur() == "Vert" && i != 0 && j != 0)
+				{
+					EstVert ++;
+					cout << "Cellule x " << x << " y " << y << " est verte" << endl;
+					//cout << "Cellule (x+j/y+i): " << x+j << "/" << y+i << endl;
+					//cout << "dans if EstVert = " << EstVert << endl;
 				}
 			}
 		}
 	}
 	//cout << "Hors if EstVert = " << EstVert<<endl;
-	/*// Si on est sur un côté
-	else if (y == 0 && x > 0 && x < 10)
+	// Si on est sur un côté
+	/*else if (y == 0 && x > 0 && x < 10)
 	{
 		for (int i = 0; i < 2; i++) {
 			for (int j = -1; j < 2; j++) {
@@ -164,17 +168,19 @@ string Grille::actualiserCellule(int x, int y)
 		EstVert++;
 	}*/
 	//int f = 1;
+	cout << "EstVert" << EstVert << endl;
 	if (EstVert == 3) {
 		return "Vert";
 		//f=1+f;
 	}
 	else if (EstVert == 2 && tabCellule_[x][y].getCouleur() == "Rouge")
 		return "Blanc";
-	/*else if (EstVert == 2 && tabCellule_[x][y].getCouleur() == "Blanc")
-		Couleur == "Blanc";*/
-	else if(EstVert <2 || EstVert >3 && tabCellule_[x][y].getCouleur() == "Vert")
+	else if (EstVert == 2 && tabCellule_[x][y].getCouleur() == "Blanc")
+		return "Blanc";
+	else if ((EstVert < 2 || EstVert >3) && tabCellule_[x][y].getCouleur() == "Vert")
 		return "Rouge";
 
+	return "Blanc";
 	//cout << "Couleur: " << Couleur << endl;
 	//cout <<"f:"<< f << endl;
 	//return Couleur;

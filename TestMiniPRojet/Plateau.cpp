@@ -126,19 +126,19 @@ void Plateau::Gameplay()
 							{
 								for (int y = 1; y < 9; y++)
 								{
-									g->setCellule(x, y, (*precedent)->actualiserCellule(x, y));
-									if ((*precedent)->actualiserCellule(x, y) == "Vert")
-										cout << "Cellule x: " << x << " y: " << y << " est verte" << endl;
-									if ((*precedent)->actualiserCellule(x, y) == "Vert")
+									string Couleur = (*precedent)->actualiserCellule(x, y);
+
+									if (Couleur == "Vert")
 										Cellule[x][y] = 1;
-									else if ((*precedent)->actualiserCellule(x, y) == "Rouge")
+									else if (Couleur == "Rouge")
 										Cellule[x][y] = 2;
 									else
 										Cellule[x][y] = 0;
+									g->setCellule(x, y, Couleur);
 								}
 							}
 							ajouterGrille(g);
-							Sleep(1000);
+							//Sleep(1000);
 						}
 						break;
 					}
