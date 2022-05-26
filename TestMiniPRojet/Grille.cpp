@@ -19,12 +19,12 @@ void Grille::setCellule(int i, int j, string couleur)
 
 string Grille::actualiserCellule(int x, int y)
 {
-	int EstVert=0;
-	if (x > 0 && x < 10)
-		if (y > 0 && y < 10)
-			EstVert = (tabCellule_[x - 1][y - 1].getCouleur() == "Vert") + (tabCellule_[x - 1][y].getCouleur() == "Vert") + (tabCellule_[x - 1][y + 1].getCouleur() == "Vert")
-			+ (tabCellule_[x][y - 1].getCouleur() == "Vert") + (tabCellule_[x][y + 1].getCouleur() == "Vert") + (tabCellule_[x + 1][y - 1].getCouleur() == "Vert") +
-			(tabCellule_[x + 1][y].getCouleur() == "Vert") + (tabCellule_[x + 1][y + 1].getCouleur() == "Vert");
+	int EstVert = 0;
+	if (x > 0 && x < 9 && y>0 && y < 9)
+		EstVert = (tabCellule_[x - 1][y - 1].getCouleur() == "Vert") + (tabCellule_[x - 1][y].getCouleur() == "Vert") + (tabCellule_[x - 1][y + 1].getCouleur() == "Vert")
+		+ (tabCellule_[x][y - 1].getCouleur() == "Vert") + (tabCellule_[x][y + 1].getCouleur() == "Vert") + (tabCellule_[x + 1][y - 1].getCouleur() == "Vert") +
+		(tabCellule_[x + 1][y].getCouleur() == "Vert") + (tabCellule_[x + 1][y + 1].getCouleur() == "Vert");
+
 
 	//cout << "Cellule " << "(" << x << "/" << y << ")" << endl;
 	//Y: ligne, X: colonne
@@ -187,6 +187,7 @@ string Grille::actualiserCellule(int x, int y)
 		if (tabCellule_[x][y].getCouleur() == "Vert")
 			return "Rouge";
 	}
+	return "Blanc";
 
 
 	//cout << "Couleur: " << Couleur << endl;
