@@ -11,7 +11,7 @@ class Plateau
 
 public:
 
-	Plateau(Grille* g) { grilles_.push_back(g); }
+	Plateau();
 	~Plateau();
 
 	//void afficherGrille(sf::RenderWindow &window);

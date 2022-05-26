@@ -5,6 +5,11 @@
 
 using namespace std;
 
+Plateau::Plateau() {
+	Grille* g = new Grille;
+	grilles_.push_back(g);
+}
+
 Plateau::~Plateau()
 {
 	for (list<Grille*>::iterator it = grilles_.begin(); it != grilles_.end(); it++)
@@ -28,6 +33,8 @@ void Plateau::rectangle(sf::RenderWindow& window, size_t i, size_t j, int couleu
 		r1.setFillColor(sf::Color::Green);
 	else if (couleur == 2)
 		r1.setFillColor(sf::Color(255, 127, 0));
+	else if (couleur == 3)
+		r1.setFillColor(sf::Color::Black);
 	else
 		r1.setFillColor(sf::Color::White);
 
@@ -74,7 +81,7 @@ void Plateau::Gameplay()
 
 							if (Cellule[localPosition.x][localPosition.y] == 0)
 							{
-								Cellule[localPosition.x][localPosition.y] = 1;
+								Cellule[localPosition.x][localPosition.y] = 3;
 								(*origine)->setCellule(localPosition.x, localPosition.y, "Vert");
 								//cout << "colonne: " << localPosition.x << " " << "ligne: " << localPosition.y << endl;
 							}
@@ -122,9 +129,9 @@ void Plateau::Gameplay()
 							Grille* g = new Grille;
 							list<Grille*>::iterator precedent = grilles_.end();
 							precedent--;
-							for (int x = 1; x < 9; x++)  //Si on passe à (x=0; x<10) on a une erreur qui ouvre un fichier "throw_bad_alloc.cpp"
+							for (int x = 0; x < 10; x++)  //Si on passe à (x=0; x<10) on a une erreur qui ouvre un fichier "throw_bad_alloc.cpp"
 							{
-								for (int y = 1; y < 9; y++)
+								for (int y = 0; y < 10; y++)
 								{
 									string Couleur = (*precedent)->actualiserCellule(x, y);
 
@@ -132,6 +139,8 @@ void Plateau::Gameplay()
 										Cellule[x][y] = 1;
 									else if (Couleur == "Rouge")
 										Cellule[x][y] = 2;
+									else if (Couleur == "Vert" && (*precedent)->getCellule(x, y).getCouleur() == "Vert")
+										Cellule[x][y] = 3;
 									else
 										Cellule[x][y] = 0;
 									g->setCellule(x, y, Couleur);
@@ -154,6 +163,8 @@ void Plateau::Gameplay()
 					rectangle(window, i, j, 1);
 				else if (Cellule[i][j] == 2)
 					rectangle(window, i, j, 2);
+				else if (Cellule[i][j] == 3)
+					rectangle(window, i, j, 3);
 				else
 					rectangle(window, i, j, 0);
 			}

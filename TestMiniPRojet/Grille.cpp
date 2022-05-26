@@ -19,12 +19,18 @@ void Grille::setCellule(int i, int j, string couleur)
 
 string Grille::actualiserCellule(int x, int y)
 {
+	int EstVert=0;
+	if (x > 0 && x < 10)
+		if (y > 0 && y < 10)
+			EstVert = (tabCellule_[x - 1][y - 1].getCouleur() == "Vert") + (tabCellule_[x - 1][y].getCouleur() == "Vert") + (tabCellule_[x - 1][y + 1].getCouleur() == "Vert")
+			+ (tabCellule_[x][y - 1].getCouleur() == "Vert") + (tabCellule_[x][y + 1].getCouleur() == "Vert") + (tabCellule_[x + 1][y - 1].getCouleur() == "Vert") +
+			(tabCellule_[x + 1][y].getCouleur() == "Vert") + (tabCellule_[x + 1][y + 1].getCouleur() == "Vert");
 
 	//cout << "Cellule " << "(" << x << "/" << y << ")" << endl;
 	//Y: ligne, X: colonne
-	int EstVert=0;
+	//int EstVert=0;
 	//cout << "Dans la fonction acutaliserCouleur" << endl;
-	if (x > 0 && x < 10 && y>0 && y < 10)
+	/*if (x > 0 && x < 10 && y>0 && y < 10)
 	{
 		for (int i = -1; i < 2; i++)
 		{
@@ -39,7 +45,7 @@ string Grille::actualiserCellule(int x, int y)
 				}
 			}
 		}
-	}
+	}*/
 	//cout << "Hors if EstVert = " << EstVert<<endl;
 	// Si on est sur un côté
 	/*else if (y == 0 && x > 0 && x < 10)
@@ -168,7 +174,7 @@ string Grille::actualiserCellule(int x, int y)
 		EstVert++;
 	}*/
 	//int f = 1;
-	cout << "EstVert" << EstVert << endl;
+	//cout << "EstVert" << EstVert << endl;
 	if (EstVert == 3) {
 		return "Vert";
 		//f=1+f;
@@ -177,10 +183,12 @@ string Grille::actualiserCellule(int x, int y)
 		return "Blanc";
 	else if (EstVert == 2 && tabCellule_[x][y].getCouleur() == "Blanc")
 		return "Blanc";
-	else if ((EstVert < 2 || EstVert >3) && tabCellule_[x][y].getCouleur() == "Vert")
-		return "Rouge";
+	else if (EstVert < 2 || EstVert >3) { //&& tabCellule_[x][y].getCouleur() == "Vert")
+		if (tabCellule_[x][y].getCouleur() == "Vert")
+			return "Rouge";
+	}
 
-	return "Blanc";
+
 	//cout << "Couleur: " << Couleur << endl;
 	//cout <<"f:"<< f << endl;
 	//return Couleur;

@@ -10,9 +10,8 @@ using namespace std;
 
 int main()
 {
-	Grille* g = new Grille;
-	Plateau p(g);
-	p.Gameplay();
+	Plateau* p = new Plateau;
+	p->Gameplay();
 
 
 	return 0;
