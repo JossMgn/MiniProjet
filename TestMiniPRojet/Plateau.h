@@ -11,7 +11,7 @@ class Plateau
 
 public:
 
-	Plateau();
+	Plateau(Grille* g = new Grille);
 	~Plateau();
 
 	void rectangle(sf::RenderWindow& window, size_t i, size_t j, int couleur);

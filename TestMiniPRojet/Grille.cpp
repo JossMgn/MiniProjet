@@ -27,6 +27,21 @@ void Grille::setCellule(int i, int j, string couleur)
 	tabCellule_[i][j].setCouleur(couleur);
 }
 
+void Grille::sauverGrille(ofstream& os) const {
+	for (int i = 0; i < 10; i++)
+		for (int j = 0; j < 10; j++)
+			tabCellule_[i][j].sauver(os);
+}
+
+void Grille::chargerGrille(ifstream& is) {
+
+	 while (!is.eof()) 
+	 {
+		 for (int i = 0; i < 10; i++) 
+			 for (int j = 0; j < 10; j++) 
+				 tabCellule_[i][j].charger(is);
+	 }
+}
 
 string Grille::actualiserCellule(int x, int y)
 {

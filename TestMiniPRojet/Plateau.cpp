@@ -5,8 +5,7 @@
 #include <chrono>
 using namespace std;
 
-Plateau::Plateau() {
-	Grille* g = new Grille;
+Plateau::Plateau(Grille* g) {
 	grilles_.push_back(g);
 }
 

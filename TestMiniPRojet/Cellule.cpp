@@ -1,4 +1,5 @@
 #include "Cellule.h"
+
 using namespace std;
 
 Cellule::Cellule(int i, int j, string couleur)
@@ -11,4 +12,19 @@ void Cellule::setPosition(int i, int j)
 {
 	Position_[0] = i;
 	Position_[1] = j;
+}
+
+void Cellule::sauver(ofstream& os) const {
+	if (!os.good())
+		cout << "erreur";
+	os << Couleur_ << endl;
+	os << Position_[0] << endl;
+	os << Position_[1] << endl;
+}
+
+void Cellule::charger(ifstream& is) {
+	getline(is, Couleur_);
+	is >> Position_[0];
+	is >> Position_[1];
+	is.ignore();
 }
