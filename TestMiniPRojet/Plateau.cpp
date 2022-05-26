@@ -122,7 +122,7 @@ void Plateau::Gameplay()
 							Grille* g = new Grille;
 							list<Grille*>::iterator precedent = grilles_.end();
 							precedent--;
-							for (int x = 1; x < 9; x++) 
+							for (int x = 1; x < 9; x++)  //Si on passe à (x=0; x<10) on a une erreur qui ouvre un fichier "throw_bad_alloc.cpp"
 							{
 								for (int y = 1; y < 9; y++)
 								{
