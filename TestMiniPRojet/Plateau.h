@@ -2,22 +2,24 @@
 #include <SFML/Graphics.hpp>
 #include "Grille.h"
 #include <string>
+#include <list>
 
 
 class Plateau
 {
-	Grille* grille_;
+	list<Grille*> grilles_;
 
 public:
 
-	Plateau(Grille* g) { grille_ = g; }
+	Plateau(Grille* g) { grilles_.push_back(g); }
 	~Plateau();
 
 	//void afficherGrille(sf::RenderWindow &window);
-	void creerfenetre();
 	void rectangle(sf::RenderWindow& window, size_t i, size_t j, int couleur);
-	void colorer(int i, int j);
-	void choisirplace(Grille* g);
-	void simuler(Grille* g);
+	void ajouterGrille(Grille* g) { grilles_.push_back(g); }
+
+	void Gameplay();
+	//void simuler(Grille* g, Grille* precedent);
+	//void initialiserGrille(sf::RenderWindow window);
 
 };

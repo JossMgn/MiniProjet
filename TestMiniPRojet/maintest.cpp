@@ -6,7 +6,8 @@ int main()
 {
 	Grille* g = new Grille;
 	Plateau p(g);
-	p.choisirplace(g);
+	p.Gameplay();
+
 
 	return 0;
 }

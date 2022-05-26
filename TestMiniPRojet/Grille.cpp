@@ -6,7 +6,7 @@ Grille::Grille()
 	{
 		for (int j = 0; j < 9; j++)
 		{
-			tabCellule_[i][j] = Cellule(i, j, "White");
+			tabCellule_[i][j] = Cellule(i, j, "Blanc");
 		}
 	}
 }
@@ -17,196 +17,165 @@ void Grille::setCellule(int i, int j, string couleur)
 }
 
 
-string Grille::actualiserCellule(int i, int j)
+string Grille::actualiserCellule(int x, int y)
 {
-	string Couleur;
-	int EstVert = 0;
-	if (i > 0 && i<9)
+	//cout << "Cellule " << "(" << x << "/" << y << ")" << endl;
+	//Y: ligne, X: colonne
+	int EstVert=0;
+	//cout << "Dans la fonction acutaliserCouleur" << endl;
+	if (x > 0 && x < 10 && y>0 && y < 10)
 	{
-		if (j > 0 && j < 9)
-		{
-			for (int k = i - 1; k < i + 2; k++)
-			{
-				for (int l = j - 1; l < j + 2; l++)
-				{
-					if (tabCellule_[k][l].getCouleur() == "Vert")
-						EstVert++;
+		for (int i = -1; i < 2; i++) {
+			for (int j = -1; j < 2; j++) {
+				if (tabCellule_[x + j][y + i].getCouleur() == "Vert" && i != 0 && j != 0) {
+					EstVert++;
+					//cout << "Cellule x " << x << " y " << y << " est verte" << endl;
+					cout << "Cellule (x+j/y+i): " << x+j << "/" << y+i << endl;
+					cout << "dans if EstVert = " << EstVert << endl;
 				}
 			}
-			if (tabCellule_[i][j].getCouleur() == "Vert")
-				EstVert--;
 		}
 	}
-	else if (j == 0 && i > 0 && i < 9)
+	//cout << "Hors if EstVert = " << EstVert<<endl;
+	/*// Si on est sur un côté
+	else if (y == 0 && x > 0 && x < 10)
 	{
-		EstVert = 0;
-		for (int k = i - 1; k < i + 2; k++)
-		{
-			if (tabCellule_[k][4].getCouleur() == "Vert")
-				EstVert++;
-
-			for (int l = j; j < j + 2; j++)
-			{
-				if (tabCellule_[k][l].getCouleur() == "Vert")
+		for (int i = 0; i < 2; i++) {
+			for (int j = -1; j < 2; j++) {
+				if (tabCellule_[x + j][y + i].getCouleur() == "Vert" && i != 0 && j != 0)
 					EstVert++;
 			}
 		}
-		if (tabCellule_[i][j].getCouleur() == "Vert")
-			EstVert--;
-	}
-	else if (j == 9 && i > 0 && i < 9)
-	{
-		EstVert = 0;
-		for (int k = i - 1; k < i + 2; k++)
-		{
-			if (tabCellule_[k][0].getCouleur() == "Vert")
+		for (int j = -1; j < 2; j++)
+			if (tabCellule_[x + j][9].getCouleur() == "Vert" && j != 0)
 				EstVert++;
-
-			for (int l = j-1; j < j + 1; j++)
-			{
-				if (tabCellule_[k][l].getCouleur() == "Vert")
+	}
+	else if (y == 9 && x > 0 && x < 10)
+	{
+		for (int i = -1; i < 1; i++) {
+			for (int j = -1; j < 2; j++) {
+				if (tabCellule_[x + j][y + i].getCouleur() == "Vert" && i != 0 && j != 0)
 					EstVert++;
 			}
 		}
-		if (tabCellule_[i][j].getCouleur() == "Vert")
-			EstVert--;
+		for (int j = -1; j < 2; j++)
+			if (tabCellule_[x + j][0].getCouleur() == "Vert" && j != 0)
+				EstVert++;
 	}
-	else if (i == 0 && j > 0 && j < 9)
+	else if (x == 0 && y > 0 && y < 10)
 	{
-		EstVert = 0;
-		for (int k = i ; k < i + 2; k++)
-		{
-			for (int l = j - 1; j < j + 2; j++)
-			{
-				if (tabCellule_[k][l].getCouleur() == "Vert")
+		for (int i = -1; i < 2; i++) {
+			for (int j = 0; j < 2; j++) {
+				if (tabCellule_[x + j][y + i].getCouleur() == "Vert" && i != 0 && j != 0)
 					EstVert++;
 			}
 		}
-		for (int l = j - 1; j < j + 2; j++)
-		{
-			if (tabCellule_[9][l].getCouleur() == "Vert")
+		for (int i = -1; i < 2; i++)
+			if (tabCellule_[9][y + i].getCouleur() == "Vert" && i != 0)
 				EstVert++;
-		}
-		if (tabCellule_[i][j].getCouleur() == "Vert")
-			EstVert--;
 	}
-	else if (i == 9 && j > 0 && j < 9)
+	else if (x == 9 && y > 0 && y < 10)
 	{
-		EstVert = 0;
-		for (int k = i - 1; k < i + 1; k++)
-		{
-			for (int l = j - 1; j < j + 2; j++)
-			{
-				if (tabCellule_[k][l].getCouleur() == "Vert")
+		for (int i = -1; i < 2; i++) {
+			for (int j = -1; j < 1; j++) {
+				if (tabCellule_[x + j][y + i].getCouleur() == "Vert" && i != 0 && j != 0)
 					EstVert++;
 			}
 		}
-		for (int l = j - 1; j < j + 2; j++)
-		{
-			if (tabCellule_[0][l].getCouleur() == "Vert")
+		for (int i = -1; i < 2; i++)
+			if (tabCellule_[0][y + i].getCouleur() == "Vert" && i != 0)
 				EstVert++;
-		}
-		if (tabCellule_[i][j].getCouleur() == "Vert")
-			EstVert--;
 	}
-	//Cas particuliers: les coins
-	else if (i == 0 && j == 0 )
+	// Si on est sur une extrêmité
+	else if (x == 0 && y == 0)
 	{
-		EstVert = 0;
-		if (tabCellule_[0][0].getCouleur() == "Vert")
-			EstVert--;
 		if (tabCellule_[9][9].getCouleur() == "Vert")
-			EstVert++;
-		else if (tabCellule_[9][0].getCouleur() == "Vert")
 			EstVert++;
 		else if (tabCellule_[0][9].getCouleur() == "Vert")
 			EstVert++;
-		for (int k = i; k < i + 2; k++)
-		{
-			for (int l = j; l < j + 2; l++)
-			{
-				if (tabCellule_[k][l].getCouleur() == "Vert")
-					EstVert++;
-			}
-		}
-
+		else if (tabCellule_[1][9].getCouleur() == "Vert")
+			EstVert++;
+		else if (tabCellule_[9][0].getCouleur() == "Vert")
+			EstVert++;
+		else if (tabCellule_[1][0].getCouleur() == "Vert")
+			EstVert++;
+		else if (tabCellule_[9][1].getCouleur() == "Vert")
+			EstVert++;
+		else if (tabCellule_[0][1].getCouleur() == "Vert")
+			EstVert++;
+		else if (tabCellule_[1][1].getCouleur() == "Vert")
+			EstVert++;
 	}
-	else if (i == 9 && j == 0)
+	else if (x == 9 && y == 0)
 	{
-	EstVert = 0;
-	if (tabCellule_[9][0].getCouleur() == "Vert")
-		EstVert--;
-	if (tabCellule_[9][9].getCouleur() == "Vert")
+		if (tabCellule_[8][9].getCouleur() == "Vert")
+			EstVert++;
+		else if (tabCellule_[9][9].getCouleur() == "Vert")
+			EstVert++;
+		else if (tabCellule_[0][9].getCouleur() == "Vert")
+			EstVert++;
+		else if (tabCellule_[8][0].getCouleur() == "Vert")
+			EstVert++;
+		else if (tabCellule_[0][0].getCouleur() == "Vert")
+			EstVert++;
+		else if (tabCellule_[8][1].getCouleur() == "Vert")
+			EstVert++;
+		else if (tabCellule_[9][1].getCouleur() == "Vert")
+			EstVert++;
+		else if (tabCellule_[0][1].getCouleur() == "Vert")
+			EstVert++;
+	}
+	else if (x == 0 && y == 9)
+	{
+		if (tabCellule_[9][8].getCouleur() == "Vert")
+			EstVert++;
+		else if (tabCellule_[0][8].getCouleur() == "Vert")
+			EstVert++;
+		else if (tabCellule_[1][8].getCouleur() == "Vert")
+			EstVert++;
+		else if (tabCellule_[9][9].getCouleur() == "Vert")
+			EstVert++;
+		else if (tabCellule_[1][9].getCouleur() == "Vert")
+			EstVert++;
+		else if (tabCellule_[9][0].getCouleur() == "Vert")
+			EstVert++;
+		else if (tabCellule_[0][0].getCouleur() == "Vert")
+			EstVert++;
+		else if (tabCellule_[1][0].getCouleur() == "Vert")
+			EstVert++;
+	}
+	else if (x == 9 && y == 9)
+	{
+	if (tabCellule_[8][8].getCouleur() == "Vert")
 		EstVert++;
-	else if (tabCellule_[0][0].getCouleur() == "Vert")
+	else if (tabCellule_[9][8].getCouleur() == "Vert")
+		EstVert++;
+	else if (tabCellule_[0][8].getCouleur() == "Vert")
+		EstVert++;
+	else if (tabCellule_[8][9].getCouleur() == "Vert")
 		EstVert++;
 	else if (tabCellule_[0][9].getCouleur() == "Vert")
 		EstVert++;
-	for (int k = i-1; k < i + 1; k++)
-	{
-		for (int l = j; l < j + 2; l++)
-		{
-			if (tabCellule_[k][l].getCouleur() == "Vert")
-				EstVert++;
-		}
-	}
-
-	}
-	else if (i == 0 && j == 9)
-	{
-	EstVert = 0;
-	if (tabCellule_[0][9].getCouleur() == "Vert")
-		EstVert--;
-	if (tabCellule_[9][9].getCouleur() == "Vert")
-		EstVert++;
-	else if (tabCellule_[0][0].getCouleur() == "Vert")
+	else if (tabCellule_[8][0].getCouleur() == "Vert")
 		EstVert++;
 	else if (tabCellule_[9][0].getCouleur() == "Vert")
 		EstVert++;
-	for (int k = i; k < i + 2; k++)
-	{
-		for (int l = j-1; l < j + 1; l++)
-		{
-			if (tabCellule_[k][l].getCouleur() == "Vert")
-				EstVert++;
-		}
-	}
-
-	}
-	else if (i == 9 && j == 9)
-	{
-	EstVert = 0;
-	if (tabCellule_[9][9].getCouleur() == "Vert")
-		EstVert--;
-	if (tabCellule_[9][0].getCouleur() == "Vert")
-		EstVert++;
 	else if (tabCellule_[0][0].getCouleur() == "Vert")
 		EstVert++;
-	else if (tabCellule_[0][9].getCouleur() == "Vert")
-		EstVert++;
-	for (int k = i-1; k < i + 1; k++)
-	{
-		for (int l = j - 1; l < j + 1; l++)
-		{
-			if (tabCellule_[k][l].getCouleur() == "Vert")
-				EstVert++;
-		}
+	}*/
+	//int f = 1;
+	if (EstVert == 3) {
+		return "Vert";
+		//f=1+f;
 	}
+	else if (EstVert == 2 && tabCellule_[x][y].getCouleur() == "Rouge")
+		return "Blanc";
+	/*else if (EstVert == 2 && tabCellule_[x][y].getCouleur() == "Blanc")
+		Couleur == "Blanc";*/
+	else if(EstVert <2 || EstVert >3 && tabCellule_[x][y].getCouleur() == "Vert")
+		return "Rouge";
 
-	}
-	//Code la couleur
-	cout << "EstVert: "<<EstVert<<" ";
-	if (EstVert < 2 || EstVert>3)
-	{
-		if (tabCellule_[i][j].getCouleur() == "Vert")
-			Couleur = "Rouge";
-		else
-			Couleur = "White";
-	}
-	else if (EstVert == 3)
-	{
-		Couleur = "Vert";
-	}
-	cout << Couleur << endl;
-	return Couleur;
+	//cout << "Couleur: " << Couleur << endl;
+	//cout <<"f:"<< f << endl;
+	//return Couleur;
 }

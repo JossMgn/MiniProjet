@@ -1,2 +1,3 @@
 ﻿  Grille.cpp
+C:\Users\jossu\OneDrive\Documents\GitHub\MiniProjet\TestMiniPRojet\Grille.cpp(181): warning C4715: 'Grille::actualiserCellule' : les chemins de contrôle ne retournent pas tous une valeur
   TestMiniPRojet.vcxproj -> C:\Users\jossu\OneDrive\Documents\GitHub\MiniProjet\TestMiniPRojet\x64\Debug\TestMiniPRojet.exe

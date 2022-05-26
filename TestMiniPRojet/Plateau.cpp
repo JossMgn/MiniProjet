@@ -1,22 +1,17 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include "Plateau.h"
+#include <windows.h>
 
 using namespace std;
 
 Plateau::~Plateau()
 {
-	delete grille_;
-}
-
-void Plateau::creerfenetre()
-{
-	sf::RenderWindow window(sf::VideoMode(300, 300), "Test Grille");
-
-	int tab[10][10];
-	for (size_t i = 0; i < 10; i++)
-		for (size_t j = 0; j < 10; j++)
-			tab[i][j] = 0;
+	for (list<Grille*>::iterator it = grilles_.begin(); it != grilles_.end(); it++)
+	{
+		delete* it;
+	}
+	grilles_.clear();
 }
 
 void Plateau::rectangle(sf::RenderWindow& window, size_t i, size_t j, int couleur)
@@ -39,9 +34,14 @@ void Plateau::rectangle(sf::RenderWindow& window, size_t i, size_t j, int couleu
 	window.draw(r1);
 }
 
-void Plateau::choisirplace(Grille* g)
+void Plateau::Gameplay()
 {
-	//string choix;
+	//localPosition.x renvoie les colonnes, .y les lignes: c'est inversé !!!
+	string choix;
+	bool simule = false;
+	cout << "simule = " << simule << endl;
+
+	list<Grille*>::iterator origine = grilles_.begin();
 	sf::RenderWindow window(sf::VideoMode(600, 600), "Test Grille");
 
 	int Cellule[10][10];
@@ -53,91 +53,102 @@ void Plateau::choisirplace(Grille* g)
 	while (window.isOpen())
 	{
 		sf::Event event;
-
-		while (window.pollEvent(event))
-		{
-			// on regarde le type de l'évènement...
-			switch (event.type)
+			while (window.pollEvent(event))
 			{
-				// fenêtre fermée
-			case sf::Event::Closed:
-				window.close();
-				break;
-
-				// touche pressée
-			case sf::Event::MouseButtonPressed:
-				if (event.mouseButton.button == sf::Mouse::Left)
+				if (simule == false)
 				{
-					sf::Vector2i localPosition = sf::Mouse::getPosition(window);
-					localPosition /= 60;
+					// on regarde le type de l'évènement...
+					switch (event.type)
+					{
+						// fenêtre fermée
+					case sf::Event::Closed:
+						window.close();
+						break;
 
-					if (Cellule[localPosition.x][localPosition.y] == 0)
-					{
-						Cellule[localPosition.x][localPosition.y] = 1;
-						g->setCellule(localPosition.x, localPosition.y, "Vert");
-					}
-					else
-					{
-						Cellule[localPosition.x][localPosition.y] = 0;
-						g->setCellule(localPosition.x, localPosition.y, "Blanc");
-					}
-				}
-				/*else if (event.mouseButton.button == sf::Mouse::Right)
-				{
-					sf::Vector2i localPosition = sf::Mouse::getPosition(window);
-					localPosition /= 60;
-
-					if (Cellule[localPosition.x][localPosition.y] == 0)
-					{
-						cout << "Ca marche !";
-						for (int j = 0; j < 10; j++)
-							Cellule[j][localPosition.y] = 1;
-					}
-					else
-					{
-						for (int j = 0; j < 10; j++)
-							Cellule[j][localPosition.y] = 0;
-					}
-				}*/
-				break;
-			case sf::Event::LostFocus:
-
-				string choix;
-				do
-				{
-					cout << "Voulez-vous lancer la simulation ? (o/n): ";
-					cin >> choix;
-				} while (choix != "n" && choix != "o");
-				if (choix == "o")
-				{
-					for (int i = 0; i < 10; i++)
-					{
-						for (int j = 0; j < 10; j++)
+						// touche pressée
+					case sf::Event::MouseButtonPressed:
+						if (event.mouseButton.button == sf::Mouse::Left)
 						{
-							string Couleur;
-							Grille* nvl_g = new Grille;
-							Couleur = g->actualiserCellule(i, j);
-							if (Couleur == "Vert")
+							sf::Vector2i localPosition = sf::Mouse::getPosition(window);
+							localPosition /= 60;
+
+							if (Cellule[localPosition.x][localPosition.y] == 0)
 							{
-								Cellule[i][j] = 1;
-								nvl_g->setCellule(i, j, Couleur);
-							}
-							else if (g->getCellule(i, j).getCouleur() == "Rouge")
-							{
-								Cellule[i][j] = 2;
-								nvl_g->setCellule(i, j, Couleur);
+								Cellule[localPosition.x][localPosition.y] = 1;
+								(*origine)->setCellule(localPosition.x, localPosition.y, "Vert");
+								//cout << "colonne: " << localPosition.x << " " << "ligne: " << localPosition.y << endl;
 							}
 							else
-								Cellule[i][j] = 0;
+							{
+								Cellule[localPosition.x][localPosition.y] = 0;
+								(*origine)->setCellule(localPosition.x, localPosition.y, "Blanc");
+								//cout << "colonne: " << localPosition.x << " " << "ligne: " << localPosition.y << endl;
+							}
 						}
+						break;
+					case sf::Event::LostFocus:
+						do {
+							cout << "Voulez-vous lancer la simulation ? (o/n): ";
+							cin >> choix;
+						} while (choix != "o" && choix != "n");
+						if (choix == "o") {
+							simule = true;
+							cout << "simule = " << simule << endl;
+						}
+						break;
 					}
 				}
-				break;
+				else
+				{
+					//cout << "Dans la boucle simule == true" << endl;
+					switch (event.type)
+					{
+					case sf::Event::Closed:
+						window.close();
+						break;
+
+					case sf::Event::LostFocus:
+
+						do {
+							cout << "Voulez-vous stopper la simulation ? (o/n): ";
+							cin >> choix;
+						} while (choix != "o" && choix != "n");
+						if (choix == "o")
+							simule = false;
+						break;
+
+					case sf::Event::MouseButtonPressed:
+						if (event.mouseButton.button == sf::Mouse::Right) {
+							Grille* g = new Grille;
+							list<Grille*>::iterator precedent = grilles_.end();
+							precedent--;
+							for (int x = 1; x < 9; x++) 
+							{
+								for (int y = 1; y < 9; y++)
+								{
+									g->setCellule(x, y, (*precedent)->actualiserCellule(x, y));
+									if ((*precedent)->actualiserCellule(x, y) == "Vert")
+										cout << "Cellule x: " << x << " y: " << y << " est verte" << endl;
+									if ((*precedent)->actualiserCellule(x, y) == "Vert")
+										Cellule[x][y] = 1;
+									else if ((*precedent)->actualiserCellule(x, y) == "Rouge")
+										Cellule[x][y] = 2;
+									else
+										Cellule[x][y] = 0;
+								}
+							}
+							ajouterGrille(g);
+							Sleep(1000);
+						}
+						break;
+					}
+				}
 			}
+		
 		window.clear(sf::Color::White);
-		for (size_t i = 0; i < 10; i++)
+		for (int i = 0; i < 10; i++)
 		{
-			for (size_t j = 0; j < 10; j++)
+			for (int j = 0; j < 10; j++)
 			{
 				if (Cellule[i][j] == 1)
 					rectangle(window, i, j, 1);
@@ -148,102 +159,16 @@ void Plateau::choisirplace(Grille* g)
 			}
 		}
 		window.display();
-		}
 	}
 }
-			/*while (window.pollEvent(event)) {
-				// Demande de fermeture de la fenêtre
-				if (event.type == sf::Event::Closed)
-					window.close();
-				// Appui sur le bouton gauche
-				if ((event.type == sf::Event::MouseButtonPressed)
-					&& (event.mouseButton.button == sf::Mouse::Left)) {
-
-					// Position de la souris dans par rapport à la fenêtre
-					sf::Vector2i localPosition = sf::Mouse::getPosition(window);
-					// Position de la souris dans le tableau
-					localPosition /= 30;
-					// Affichage console des coordonées
-					//std::cout << localPosition.x << " " << localPosition.y << std::endl;
-					// Si on tombe sur une case vide
-					if (tab[localPosition.x][localPosition.y] == 0)
-					{
-						tab[localPosition.x][localPosition.y] = 1;
-						g->setCellule(localPosition.x, localPosition.y, "Green");
-						//g->affichertabCellule_();
-						// On met a jour le nombre de cases vides
-						nbLeft--;
-					}
-					else {
-						tab[localPosition.x][localPosition.y] = 0;
-						g->setCellule(localPosition.x, localPosition.y, "White");
-						//g.affichertabCellule_();
-
-						nbLeft++;
-					}
-				}
-			}
-			// On efface la fenêtre (en blanc)
-			window.clear(sf::Color::White);
-			// On affiche la grille
-			afficherGrille(window);
-			// Parcours du tableau
-			for (size_t i = 0; i < 10; i++) {
-				for (size_t j = 0; j < 10; j++) {
-					// Affichage du jeton
-					if (tab[i][j] == 1)
-						rectangle(window, i, j, 1);
-				}
-			}
-			// Mise à jour de la fenêtre
-			window.display();
-		}
-		//simuler(g);*/
 
 
-/*void Plateau::simuler(Grille* g)
+/*void Plateau::simuler(Grille* g, Grille* precedent)
 {
-	string choix;
-	for (int i = 0; i < 10; i++)
-	{
-		for (int j = 0; j < 10; j++)
-		{
-			g->actualiserCellule(i, j);
+	for (int x = 0; x < 9; x++) {
+		for (int y = 0; y < 9; y++) {
+			g->setCellule(x, y, precedent->actualiserCellule(x, y));
 		}
-	}
-	sf::RenderWindow window(sf::VideoMode(300, 300), "Test Grille");
-	int tab[10][10];
-	for (int i = 0; i < 10; i++)
-	{
-		for (int j = 0; j < 10; j++)
-		{
-			if (g->getCellule(i, j).getCouleur() == "Vert")
-				tab[10][10] = 1;
-			else if (g->getCellule(i, j).getCouleur() == "Rouge")
-				tab[10][10] = 2;
-			else
-				tab[10][10] = 0;
-		}
-	}
-	cout << "stoper la simu ? (o/n)" << endl;
-	while (window.isOpen() && choix != "n")
-	{
-		window.clear(sf::Color::White);
-		// On affiche la grille
-		afficherGrille(window);
-		// Parcours du tableau
-		for (size_t i = 0; i < 10; i++) {
-			for (size_t j = 0; j < 10; j++) {
-				// Affichage du jeton
-				if (tab[i][j] == 1)
-					rectangle(window, i, j, 1);
-				else if (tab[i][j] == 2)
-					rectangle(window, i, j, 2);
-			}
-		}
-		// Mise à jour de la fenêtre
-		window.display();
-		cin >> choix;
 	}
 }*/
 

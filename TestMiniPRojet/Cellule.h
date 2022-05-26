@@ -11,7 +11,7 @@ class Cellule
 
 public:
 
-	Cellule(int i=0, int j=0, string couleur="White");
+	Cellule(int i=0, int j=0, string couleur="Blanc");
 	string setCouleur(string couleur) { return Couleur_ = couleur; }
 	int getPosition(int i) { return Position_[i]; }
 	void setPosition(int i, int j);
