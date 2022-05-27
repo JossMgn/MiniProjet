@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 #include <string>
+#include <fstream>
 using namespace std;
 
 
@@ -18,5 +19,8 @@ public:
 
 	int getPosition(int i) { return Position_[i]; }
 	void setPosition(int i, int j);
+
+	void sauver(ofstream& os) const;
+	void charger(ifstream& is);
 
 };

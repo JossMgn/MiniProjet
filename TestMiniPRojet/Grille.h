@@ -14,10 +14,11 @@ class Grille
 public:
 
 	Grille();
+	void operator=(const Grille& g);
 
 	void setCellule(int i, int j, string couleur);
 	Cellule getCellule(int i, int j) { return tabCellule_[i][j]; }
 	string actualiserCellule(int  x, int y);
-	void sauver(fstream& os);
-	void charger(fstream& is);
+	void sauverGrille(ofstream& os) const;
+	void chargerGrille(ifstream& is);
 };
