@@ -1,6 +1,6 @@
 #pragma once
-#ifndef _MENU_MOYENNE
-#define _MENU_MOYENNE
+#include "MenuLancer.h"
+#include "Plateau.h"
 
 
 #include "menu.h"
@@ -16,4 +16,3 @@ public:
 };
 
 
-#endif

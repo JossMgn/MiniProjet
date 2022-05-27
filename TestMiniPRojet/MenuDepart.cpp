@@ -6,8 +6,8 @@
 using namespace std;
 
 
- MenuDepart::MenuDepart() : Menu("Exemple de menu :")
-{
+ MenuDepart::MenuDepart() : Menu("Menu Depart")
+ {
 	
 	ajouterOption("aide", "Afficher de l'aide");
 	ajouterOption("nvlpartie", "Lancer une nouvelle partie");
@@ -18,11 +18,9 @@ using namespace std;
 
 void MenuDepart::executerOption(const string& nom, bool& fin)
 {
-	MenuLancer m();
-	if (nom == "nvlpartie") MenuLancer();
-	if (nom == "chargpartie") SaisirNotes();
-
-	if (nom != "calculmoyenne" && nom != "saisirnote" && nom != "saisirmatiere") Menu::executerOption(nom, fin);
-
+	Plateau* p = new Plateau;
+	MenuJeu menu(p);
+	if (nom == "nvlpartie") {menu; p->Gameplay();}
+	//if (nom == "chargpartie") //SaisirNotes();
 }
 

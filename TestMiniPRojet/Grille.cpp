@@ -25,13 +25,13 @@ void Grille::operator=(const Grille& g)
 void Grille::setCellule(int i, int j, string couleur)
 {
 	tabCellule_[i][j].setCouleur(couleur);
-}
+}//Permet d'initialiser la couleur de la cellule (i/j)
 
 void Grille::sauverGrille(ofstream& os) const {
 	for (int i = 0; i < 10; i++)
 		for (int j = 0; j < 10; j++)
 			tabCellule_[i][j].sauver(os);
-}
+}//Permet la sauvegarde de grille
 
 void Grille::chargerGrille(ifstream& is) {
 
@@ -41,7 +41,7 @@ void Grille::chargerGrille(ifstream& is) {
 			 for (int j = 0; j < 10; j++) 
 				 tabCellule_[i][j].charger(is);
 	 }
-}
+}//Permet de charger une grille existente
 
 string Grille::actualiserCellule(int x, int y)
 {
@@ -133,4 +133,4 @@ string Grille::actualiserCellule(int x, int y)
 	}
 	return "Blanc";
 
-}
+}//retourne la couleur de la cellule (x/y) au tour suivant
