@@ -6,6 +6,6 @@
 class MenuJeu : public Menu
 {
 public:
-	MenuJeu(Plateau *p);
-	void executerOption(const string& nom, bool& fin, Plateau*p);
+	MenuJeu();
+	void executerOption(const string& nom, bool& fin);
 };

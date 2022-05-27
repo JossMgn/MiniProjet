@@ -9,7 +9,6 @@
 class Plateau
 {
 	list<Grille*> grilles_;
-	sf::RenderWindow window_;
 	bool pasApas_;
 
 public:
@@ -17,11 +16,10 @@ public:
 	Plateau(Grille* g = new Grille);
 	~Plateau();
 	void ajouterGrille(Grille* g) { grilles_.push_back(g); }
-	sf::RenderWindow* getWindow() { return &window_; }
 
 
-	void rectangle(size_t i, size_t j, int couleur);
-	void afficher();
+	void rectangle(sf::RenderWindow &w, size_t i, size_t j, int couleur);
+	void afficher(sf::RenderWindow &w);
 	void initialiser();
 	void simuler();
 

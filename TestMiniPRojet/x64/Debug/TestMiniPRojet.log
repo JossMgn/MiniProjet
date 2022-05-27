@@ -1,27 +1,6 @@
-﻿  maintest.cpp
-C:\Users\jossu\OneDrive\Documents\GitHub\MiniProjet\TestMiniPRojet\MenuJeu.h(9,10): error C2061: erreur de syntaxe : identificateur 'Plateau'
-C:\Users\jossu\OneDrive\Documents\GitHub\MiniProjet\TestMiniPRojet\MenuJeu.h(10,52): error C2061: erreur de syntaxe : identificateur 'Plateau'
-  Menu.cpp
-  MenuDepart.cpp
-C:\Users\jossu\OneDrive\Documents\GitHub\MiniProjet\TestMiniPRojet\MenuJeu.h(9,10): error C2061: erreur de syntaxe : identificateur 'Plateau'
-C:\Users\jossu\OneDrive\Documents\GitHub\MiniProjet\TestMiniPRojet\MenuJeu.h(10,52): error C2061: erreur de syntaxe : identificateur 'Plateau'
-C:\Users\jossu\OneDrive\Documents\GitHub\MiniProjet\TestMiniPRojet\MenuDepart.cpp(22,16): error C2664: 'MenuJeu::MenuJeu(const MenuJeu &)' : impossible de convertir l'argument 1 de 'Plateau *' en 'const MenuJeu &'
-C:\Users\jossu\OneDrive\Documents\GitHub\MiniProjet\TestMiniPRojet\MenuDepart.cpp(22,16): message : Raison : impossible de convertir de 'Plateau *' en 'const MenuJeu'
-C:\Users\jossu\OneDrive\Documents\GitHub\MiniProjet\TestMiniPRojet\MenuDepart.cpp(22,16): message : Aucun constructeur n'a pu prendre le type de source, ou la résolution de la surcharge du constructeur était ambiguë
-C:\Users\jossu\OneDrive\Documents\GitHub\MiniProjet\TestMiniPRojet\MenuJeu.h(11,1): message : voir la déclaration de 'MenuJeu::MenuJeu'
-  MenuJeu.cpp
-C:\Users\jossu\OneDrive\Documents\GitHub\MiniProjet\TestMiniPRojet\MenuJeu.cpp(13,35): warning C4930: 'MenuDepart m(void)' : fonction prototypée non appelée (était-ce la définition de variable souhaitée ?)
-  MenuLancer.cpp
-C:\Users\jossu\OneDrive\Documents\GitHub\MiniProjet\TestMiniPRojet\MenuLancer.cpp(20,26): warning C4390: ';' : une instruction contrôlée a été trouvée vide ; est-ce ce que vous souhaitiez ?
-C:\Users\jossu\OneDrive\Documents\GitHub\MiniProjet\TestMiniPRojet\MenuLancer.cpp(21,28): warning C4390: ';' : une instruction contrôlée a été trouvée vide ; est-ce ce que vous souhaitiez ?
-  MenuOption.cpp
-  Plateau.cpp
-C:\Users\jossu\OneDrive\Documents\GitHub\MiniProjet\TestMiniPRojet\MenuJeu.h(9,10): error C2061: erreur de syntaxe : identificateur 'Plateau'
-C:\Users\jossu\OneDrive\Documents\GitHub\MiniProjet\TestMiniPRojet\MenuJeu.h(10,52): error C2061: erreur de syntaxe : identificateur 'Plateau'
-C:\Users\jossu\OneDrive\Documents\GitHub\MiniProjet\TestMiniPRojet\Plateau.cpp(56,37): warning C4244: 'argument' : conversion de 'size_t' en 'float', perte possible de données
-C:\Users\jossu\OneDrive\Documents\GitHub\MiniProjet\TestMiniPRojet\Plateau.cpp(56,24): warning C4244: 'argument' : conversion de 'size_t' en 'float', perte possible de données
-C:\Users\jossu\OneDrive\Documents\GitHub\MiniProjet\TestMiniPRojet\Plateau.cpp(92,16): error C2664: 'MenuJeu::MenuJeu(const MenuJeu &)' : impossible de convertir l'argument 1 de 'Plateau *' en 'const MenuJeu &'
-C:\Users\jossu\OneDrive\Documents\GitHub\MiniProjet\TestMiniPRojet\Plateau.cpp(92,16): message : Raison : impossible de convertir de 'Plateau *' en 'const MenuJeu'
-C:\Users\jossu\OneDrive\Documents\GitHub\MiniProjet\TestMiniPRojet\Plateau.cpp(92,16): message : Aucun constructeur n'a pu prendre le type de source, ou la résolution de la surcharge du constructeur était ambiguë
-C:\Users\jossu\OneDrive\Documents\GitHub\MiniProjet\TestMiniPRojet\MenuJeu.h(11,1): message : voir la déclaration de 'MenuJeu::MenuJeu'
+﻿  Plateau.cpp
+C:\Users\jossu\OneDrive\Documents\GitHub\MiniProjet\TestMiniPRojet\Plateau.cpp(55,37): warning C4244: 'argument' : conversion de 'size_t' en 'float', perte possible de données
+C:\Users\jossu\OneDrive\Documents\GitHub\MiniProjet\TestMiniPRojet\Plateau.cpp(55,24): warning C4244: 'argument' : conversion de 'size_t' en 'float', perte possible de données
+  maintest.cpp
   Génération de code en cours...
+  TestMiniPRojet.vcxproj -> C:\Users\jossu\OneDrive\Documents\GitHub\MiniProjet\TestMiniPRojet\x64\Debug\TestMiniPRojet.exe
