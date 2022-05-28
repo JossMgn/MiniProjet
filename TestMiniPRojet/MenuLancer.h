@@ -1,8 +1,7 @@
 #pragma once
 #ifndef _MENULANCER
 #define _MENULANCER
-//#include "MenuDepart.h"
-
+#include "MenuDepart.h"
 #include "menu.h"
 #include "Plateau.h"
 
@@ -17,7 +16,7 @@ public:
 	MenuLancer(Plateau * p);
 	
 	void executerOption(const string& nom, bool& fin);
-	//~MenuLancer();
+	~MenuLancer();
 };
 
 #endif

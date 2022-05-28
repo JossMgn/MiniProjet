@@ -1,6 +1,6 @@
 #include "Grille.h"
 
-Grille::Grille()
+Grille::Grille(string nom):nom_(nom)
 {
 	for (int i = 0; i < 10; i++)
 	{
@@ -13,6 +13,7 @@ Grille::Grille()
 
 void Grille::operator=(const Grille& g)
 {
+	
 	for (int i = 0; i < 10; i++)
 	{
 		for (int j = 0; j < 10; j++)

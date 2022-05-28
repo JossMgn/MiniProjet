@@ -5,9 +5,10 @@
 #include <chrono>
 using namespace std;
 
-Plateau::Plateau(Grille* g) {
+Plateau::Plateau(sf::RenderWindow& window,Grille* g) {
 	grilles_.push_back(g);
 	pasApas_ = false;
+	window_ = &window;
 } 
 
 Plateau::~Plateau()
@@ -18,44 +19,36 @@ Plateau::~Plateau()
 	}
 } //Détruit grilles_
 
-void Plateau::afficher(sf::RenderWindow &w) {
-	w.clear(sf::Color::White);
+void Plateau::afficher() {
+	
+	window_->clear(sf::Color::White);
 	for (int i = 0; i < 10; i++)
 	{
 		for (int j = 0; j < 10; j++)
 		{
-			if ((*grilles_.rbegin())->getCellule(i,j).getCouleur() == "Vert")
-				rectangle(w,i, j, 1);
+			if ((*grilles_.rbegin())->getCellule(i, j).getCouleur() == "Vert")
+				rectangle(i, j, 1);
 			else if ((*grilles_.rbegin())->getCellule(i, j).getCouleur() == "Rouge")
-				rectangle(w,i, j, 2);
+				rectangle(i, j, 2);
 			else if ((*grilles_.rbegin())->getCellule(i, j).getCouleur() == "Noir")
-				rectangle(w,i, j, 3);
+				rectangle(i, j, 3);
 			else
-				rectangle(w,i, j, 0);
+				rectangle(i, j, 0);
 		}
 	}
-	w.display();
+	window_->display();
 }//affiche la fenêtre sfml
 
 void Plateau::retourDebut() {
-	bool Pap = setpasApas(false);
 	while (grilles_.size() > 1) {
 		delete grilles_.back();
 		grilles_.pop_back();
 	}
 }//Permet de réinitialiser la lsite de grille grilles_ jusqu'à la première
 
-void Plateau::chargergrille(ifstream& is)
+void Plateau::rectangle( size_t i, size_t j, int couleur)
 {
-	list<Grille*>::iterator it;
-	for (it = grilles_.begin(); it != grilles_.end(); it++)
-	{
-		it.
-	}
-}
-
-void Plateau::rectangle(sf::RenderWindow &w, size_t i, size_t j, int couleur)
-{
+	
 	sf::RectangleShape r1(sf::Vector2f(58, 58));
 
 	r1.setOutlineThickness(2);
@@ -73,7 +66,7 @@ void Plateau::rectangle(sf::RenderWindow &w, size_t i, size_t j, int couleur)
 	else
 		r1.setFillColor(sf::Color::White);
 
-	w.draw(r1);
+	window_->draw(r1);
 }//Paramètre la forme et la couleur des cellules
 
 void Plateau::simuler() {
@@ -98,23 +91,23 @@ void Plateau::simuler() {
 void Plateau::Gameplay()
 {
 	//localPosition.x renvoie les colonnes, .y les lignes: c'est inversé !!!
-	//MenuJeu m();
+	
 	string choix;
 	bool simule = false;
 	bool tour = false;
 	//bool pasApas = false;
-	MenuJeu mj(this);
+	
 	list<Grille*>::iterator origine = grilles_.begin();
-	sf::RenderWindow window(sf::VideoMode(600, 600), "Test Grille");
+	sf::RenderWindow* window = getWindow();
 
 
 	sf::Time ecoule = sf::milliseconds(0);
 	sf::Time ecart = sf::milliseconds(1500);
 	sf::Clock clock;
-	while (window.isOpen())
+	while (window_->isOpen())
 	{
 		sf::Event event;
-		while (window.pollEvent(event))
+		while (window_->pollEvent(event))
 		{
 			if (simule == false)
 			{
@@ -123,13 +116,13 @@ void Plateau::Gameplay()
 				{
 					// fenêtre fermée
 				case sf::Event::Closed:
-					window.close();
+					window_->close();
 					break;
 
 				case sf::Event::MouseButtonPressed:
 					if (event.mouseButton.button == sf::Mouse::Left)
 					{
-						sf::Vector2i localPosition = sf::Mouse::getPosition(window);
+						sf::Vector2i localPosition = sf::Mouse::getPosition(*window_);
 						localPosition /= 60;
 
 						if ((*origine)->getCellule(localPosition.x, localPosition.y).getCouleur() == "Blanc")
@@ -152,8 +145,6 @@ void Plateau::Gameplay()
 						simule = true;
 						//cout << "simule = " << simule << endl;
 					}
-
-
 					break;
 				}
 			}
@@ -162,19 +153,16 @@ void Plateau::Gameplay()
 				switch (event.type)
 				{
 				case sf::Event::Closed:
-					window.close();
+					window_->close();
 					break;
 
 				case sf::Event::LostFocus:
-					
-					//mj.executer();
-					cout << "Que voulez vous faire ?: " << endl;
+
+					/*cout << "Que voulez vous faire ?: " << endl;
 					cout << "1 - Revenir au debut" << endl;
-					cout << "2 - Pas à pas" << endl;
-					cout << "3 - Enregistrer grille" << endl;
-					cout << "4 - Quitter" << endl;
+					cout << "2 - Pas à pas" << endl << endl;
 					cin >> choix;
-					while (choix != "1" && choix != "2" && choix!="3" && choix != "4")
+					while (choix != "1" && choix != "2")
 					{
 						cout << "Saisir un champ valide: ";
 					}
@@ -183,26 +171,11 @@ void Plateau::Gameplay()
 						simule = false;
 					}
 					if (choix == "2") {
-						setpasApas(true);
-					}
-					if (choix == "3")
-					{
-						string nom;
-						cout << "Choisissez le nom de la grille (precisez .txt a la fin): " << endl;
-						cin >> nom;
-						ofstream os(nom);
-						Grille *g=new Grille(nom);
-						g->sauverGrille(os);
-						ajouterGrille(g);
-					}
-					if (choix == "4")
-					{
-						MenuLancer m(this);
-						m.executer();
-					}
+						pasApas = true;
+					}*/
 					//m.afficherMenu();
 					break;
-					
+
 				case sf::Event::MouseButtonPressed:
 					if (event.mouseButton.button == sf::Mouse::Right && getpasApas() == true) {
 						if (tour == false) {
@@ -226,8 +199,6 @@ void Plateau::Gameplay()
 				}
 			}
 		}
-		afficher(window);
-
 		if (simule == true && getpasApas() == false )
 		{
 			ecoule += clock.restart();
@@ -251,7 +222,7 @@ void Plateau::Gameplay()
 			}
 
 		}
-			
+		afficher();
 		
 	}
 }//Permet d'associer à chaque évènement son intérêt

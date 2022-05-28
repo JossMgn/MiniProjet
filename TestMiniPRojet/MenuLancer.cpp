@@ -2,7 +2,7 @@
 #include <cstdlib>
 
 #include "MenuLancer.h"
-
+#include "MenuJeu.h"
 using namespace std;
 
 
@@ -20,13 +20,21 @@ void MenuLancer::executerOption(const string& nom, bool& fin)
 {
 	if (nom == "nvlpartie")
 	{
-		MenuDepart md(p_);
-		md.executer();
+		p_->afficher();
+		//p_->Gameplay();
+		//MenuJeu mj(p_);
+		//mj.executer();
 		system("pause");
 	}
 	else if (nom == "chargpartie")
 	{
 		cout << "Choisir une partie" << endl;
+		list<Grille*>::iterator it;
+		for (p_->get; it != p_->getGrilles().end(); it++)
+		{
+			cout << it.getNom();
+
+		}
 		system("pause");
 	}
 	else
@@ -37,8 +45,8 @@ void MenuLancer::executerOption(const string& nom, bool& fin)
 }
 
 
-/*MenuLancer::~MenuLancer()
+MenuLancer::~MenuLancer()
 {
 	delete p_;
 }
-*/
+

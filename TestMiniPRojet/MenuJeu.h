@@ -3,9 +3,11 @@
 #include"MenuDepart.h"
 #include "Plateau.h"
 
+class Plateau;
 class MenuJeu : public Menu
 {
+	Plateau* p_;
 public:
-	MenuJeu();
+	MenuJeu(Plateau* p);
 	void executerOption(const string& nom, bool& fin);
 };
