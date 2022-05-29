@@ -20,21 +20,21 @@ void MenuLancer::executerOption(const string& nom, bool& fin)
 {
 	if (nom == "nvlpartie")
 	{
-		p_->afficher();
-		//p_->Gameplay();
-		//MenuJeu mj(p_);
-		//mj.executer();
+		p_ = new Plateau;
+		p_->Gameplay();
+		MenuJeu mj(p_);
+		mj.executer();
 		system("pause");
 	}
 	else if (nom == "chargpartie")
 	{
 		cout << "Choisir une partie" << endl;
-		list<Grille*>::iterator it;
+		/*list<Grille*>::iterator it;
 		for (p_->get; it != p_->getGrilles().end(); it++)
 		{
 			cout << it.getNom();
 
-		}
+		}*/
 		system("pause");
 	}
 	else

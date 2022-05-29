@@ -10,7 +10,7 @@ class Plateau
 {
 	list<Grille*> grilles_;
 	bool pasApas_;
-
+	bool simule_;
 public:
 
 	Plateau(Grille* g = new Grille);
@@ -27,9 +27,10 @@ public:
 
 	Grille* origine() { return (*grilles_.begin()); }
 
-	bool setpasApas(bool pAp) { return pasApas_=pAp; }
+	void setpasApas(bool pAp) { pasApas_=pAp; }
 	bool getpasApas() { return pasApas_; }
-
+	void setsimule(bool simule) { simule_ = simule; }
+	bool getsimule() { return simule_; }
 	void Gameplay();
 
 

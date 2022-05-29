@@ -8,6 +8,7 @@ using namespace std;
 Plateau::Plateau(Grille* g) {
 	grilles_.push_back(g);
 	pasApas_ = false;
+	simule_ = false;
 } 
 
 Plateau::~Plateau()
@@ -33,12 +34,26 @@ void Plateau::afficher(sf::RenderWindow &w) {
 			else
 				rectangle(w,i, j, 0);
 		}
+		/*sf::RectangleShape rJouer(sf::Vector2f(125, 100));
+		rJouer.setPosition(650, 100);
+		rJouer.setFillColor(sf::Color::Green);
+		w.draw(rJouer);
+		sf::RectangleShape rPasapas(sf::Vector2f(125, 100));
+		rPasapas.setFillColor(sf::Color::Yellow);
+		rPasapas.setPosition(650, 250);
+		w.draw(rPasapas);
+		sf::RectangleShape rOrigine(sf::Vector2f(125, 100));
+		rOrigine.setFillColor(sf::Color::Blue);
+		rOrigine.setPosition(650, 400);
+		w.draw(rOrigine);*/
+
 	}
 	w.display();
 }//affiche la fenêtre sfml
 
 void Plateau::retourDebut() {
-	bool Pap = setpasApas(false);
+	simule_ = false;
+	setpasApas(false);
 	while (grilles_.size() > 1) {
 		delete grilles_.back();
 		grilles_.pop_back();
@@ -50,7 +65,7 @@ void Plateau::chargergrille(ifstream& is)
 	list<Grille*>::iterator it;
 	for (it = grilles_.begin(); it != grilles_.end(); it++)
 	{
-		it.
+		
 	}
 }
 
@@ -100,9 +115,9 @@ void Plateau::Gameplay()
 	//localPosition.x renvoie les colonnes, .y les lignes: c'est inversé !!!
 	//MenuJeu m();
 	string choix;
-	bool simule = false;
+	simule_ = false;
 	bool tour = false;
-	//bool pasApas = false;
+	bool pasApas = false;
 	MenuJeu mj(this);
 	list<Grille*>::iterator origine = grilles_.begin();
 	sf::RenderWindow window(sf::VideoMode(600, 600), "Test Grille");
@@ -116,7 +131,7 @@ void Plateau::Gameplay()
 		sf::Event event;
 		while (window.pollEvent(event))
 		{
-			if (simule == false)
+			if (simule_ == false)
 			{
 				// on regarde le type de l'évènement...
 				switch (event.type)
@@ -130,7 +145,10 @@ void Plateau::Gameplay()
 					if (event.mouseButton.button == sf::Mouse::Left)
 					{
 						sf::Vector2i localPosition = sf::Mouse::getPosition(window);
-						localPosition /= 60;
+						
+						//cout << localPosition.x<<localPosition.y;
+						
+						localPosition/= 60;
 
 						if ((*origine)->getCellule(localPosition.x, localPosition.y).getCouleur() == "Blanc")
 						{
@@ -141,6 +159,20 @@ void Plateau::Gameplay()
 						{
 							(*origine)->setCellule(localPosition.x, localPosition.y, "Blanc");
 						}
+						
+						/*if ((localPosition.x >= 650 && localPosition.x <= 775) && (localPosition.y >= 100 && localPosition.y <= 200))
+						{
+							simule_ = true;
+						}
+						else if ((localPosition.x >= 650 && localPosition.x <= 775) && (localPosition.y >= 250 && localPosition.y <= 350))
+						{
+							simule_ = true;
+							pasApas_ = true;
+						}
+						else if ((localPosition.x >= 650 && localPosition.x <= 775) && (localPosition.y >= 400 && localPosition.y <= 500))
+						{
+							retourDebut();
+						}*/
 					}
 					break;
 				case sf::Event::LostFocus:
@@ -149,10 +181,12 @@ void Plateau::Gameplay()
 						cin >> choix;
 					} while (choix != "o" && choix != "n");
 					if (choix == "o") {
-						simule = true;
+						simule_ = true;
+						
 						//cout << "simule = " << simule << endl;
 					}
-
+					
+					//mj.executer();
 
 					break;
 				}
@@ -169,10 +203,10 @@ void Plateau::Gameplay()
 					
 					//mj.executer();
 					cout << "Que voulez vous faire ?: " << endl;
-					cout << "1 - Revenir au debut" << endl;
-					cout << "2 - Pas à pas" << endl;
-					cout << "3 - Enregistrer grille" << endl;
-					cout << "4 - Quitter" << endl;
+					cout << "1 - Revenir a la grille de depart" << endl;
+					cout << "2 - Mettre ou enlever le mode pas a pas" << endl;
+					cout << "3 - Enregistrer la grille" << endl;
+					cout << "4 - Lancer une nouvelle grille" << endl;
 					cin >> choix;
 					while (choix != "1" && choix != "2" && choix!="3" && choix != "4")
 					{
@@ -180,10 +214,12 @@ void Plateau::Gameplay()
 					}
 					if (choix == "1") {
 						retourDebut();
-						simule = false;
+						
 					}
 					if (choix == "2") {
-						setpasApas(true);
+						bool pap = getpasApas();
+						if (pap)setpasApas(false);
+						else setpasApas(true);
 					}
 					if (choix == "3")
 					{
@@ -228,7 +264,7 @@ void Plateau::Gameplay()
 		}
 		afficher(window);
 
-		if (simule == true && getpasApas() == false )
+		if (simule_ == true && getpasApas() == false )
 		{
 			ecoule += clock.restart();
 			if (ecoule >= ecart) {
