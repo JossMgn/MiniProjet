@@ -5,15 +5,20 @@
 #include <list>
 #include "MenuJeu.h"
 
+class MenuJeu;
 
 class Plateau
 {
+	MenuJeu* menu_;
 	list<Grille*> grilles_;
 	bool pasApas_;
+	bool focus_;
+	bool simule_;
+	bool tour_;
 
 public:
 
-	Plateau(Grille* g = new Grille);
+	Plateau(MenuJeu* m = 0, Grille* g = new Grille);
 	~Plateau();
 	void ajouterGrille(Grille* g) { grilles_.push_back(g); }
 
@@ -22,15 +27,23 @@ public:
 	void afficher(sf::RenderWindow &w);
 	void initialiser();
 	void simuler();
-
+	MenuJeu* setMenu(MenuJeu* m) {return menu_ = m; }
 	void retourDebut();
 
-	Grille* origine() { return (*grilles_.begin()); }
+	Grille* getorigine() { return (*grilles_.begin()); }
 
+	bool setfocus(bool focus) { return focus_ = focus; }
+	bool getfocus() { return focus_; }
+	bool settour(bool tour) { return tour_ = tour; }
+	bool gettour() { return tour_; }
+	bool setsimule(bool s) { return simule_ = s; }
+	bool getsimule() { return simule_; }
 	bool setpasApas(bool pAp) { return pasApas_=pAp; }
 	bool getpasApas() { return pasApas_; }
 
 	void Gameplay();
+
+	void sauverNom(ofstream& os, string const &nom) const;
 
 
 };

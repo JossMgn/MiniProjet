@@ -30,7 +30,7 @@ public:
     void ajouterOption(const string& nom, const string& description);
     void afficherMenu();
     int demanderChoix();
-    void executer();
+    virtual void executer();
     virtual void executerOption(const string& nom, bool& fin);
     bool quitter();
     virtual void aide();

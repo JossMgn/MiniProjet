@@ -5,9 +5,13 @@
 #include <chrono>
 using namespace std;
 
-Plateau::Plateau(Grille* g) {
+Plateau::Plateau(MenuJeu* m, Grille* g) {
+	menu_ = 0;
 	grilles_.push_back(g);
 	pasApas_ = false;
+	focus_=false;
+	simule_=false;
+	tour_=false;
 } 
 
 Plateau::~Plateau()
@@ -89,9 +93,9 @@ void Plateau::Gameplay()
 {
 	//localPosition.x renvoie les colonnes, .y les lignes: c'est inversé !!!
 	//MenuJeu m();
+	string nom;
+	bool saved = false;
 	string choix;
-	bool simule = false;
-	bool tour = false;
 	//bool pasApas = false;
 
 	list<Grille*>::iterator origine = grilles_.begin();
@@ -106,7 +110,7 @@ void Plateau::Gameplay()
 		sf::Event event;
 		while (window.pollEvent(event))
 		{
-			if (simule == false)
+			if (getsimule() == false)
 			{
 				// on regarde le type de l'évènement...
 				switch (event.type)
@@ -134,14 +138,17 @@ void Plateau::Gameplay()
 					}
 					break;
 				case sf::Event::LostFocus:
-					do {
+					//menu_->afficherMenu();
+					menu_->executer();
+					/*do {
 						cout << "Voulez-vous lancer la simulation ? (o/n): ";
 						cin >> choix;
 					} while (choix != "o" && choix != "n");
 					if (choix == "o") {
-						simule = true;
+						cout << "Cliquer sur la grille pour lancer: "<<endl;
+						setsimule(true);
 						//cout << "simule = " << simule << endl;
-					}
+					}*/
 					break;
 				}
 			}
@@ -153,31 +160,66 @@ void Plateau::Gameplay()
 					window.close();
 					break;
 
-				case sf::Event::LostFocus:
+				case sf::Event::GainedFocus:
+					setfocus(!getfocus());
+					break;
 
-					cout << "Que voulez vous faire ?: " << endl;
+				case sf::Event::LostFocus:
+					//menu_->afficherMenu();
+					setfocus(!getfocus());
+					menu_->executer();
+					/*cout << "Que voulez vous faire ?: " << endl;
 					cout << "1 - Revenir au debut" << endl;
-					cout << "2 - Pas à pas" << endl << endl;
+					cout << "2 - Pas à pas" << endl;
+					cout << "3 - Sauver la grille" << endl;
+					if (saved == true)
+						cout << "4 - Charger la grille" << endl;
+					cout << endl;
 					cin >> choix;
-					while (choix != "1" && choix != "2")
+					while (choix != "1" && choix != "2" && choix != "3")
 					{
 						cout << "Saisir un champ valide: ";
+						cin >> choix;
+					}
+					if (saved == true) { 
+						while (choix != "1" && choix != "2" && choix != "3" && choix != "4")
+						{
+							cout << "Saisir un champ valide: ";
+							cin >> choix;
+						}
 					}
 					if (choix == "1") {
 						retourDebut();
-						simule = false;
+						setsimule(false);
+						setfocus(!getfocus());
 					}
 					if (choix == "2") {
 						setpasApas(true);
+						setfocus(!getfocus());
 					}
+					if (choix == "3") {
+						cout << "choisir nom (avec .txt): ";
+						cin >> nom;
+						ofstream os(nom);
+						getorigine()->sauverGrille(os);
+						saved = !saved;
+					}
+					if (choix == "4") {
+						ifstream is(nom);
+						Grille* g = new Grille;
+						g->chargerGrille(is);
+						grilles_.clear();
+						ajouterGrille(g);
+
+					}*/
 					//m.afficherMenu();
 					break;
 
 				case sf::Event::MouseButtonPressed:
 					if (event.mouseButton.button == sf::Mouse::Right && getpasApas() == true) {
-						if (tour == false) {
+						if (gettour() == false) {
 							simuler();
-							tour = true;
+							settour(true);
 						}
 						else {
 							for (int i = 0; i < 10; i++) {
@@ -188,7 +230,7 @@ void Plateau::Gameplay()
 										(*grilles_.rbegin())->setCellule(i, j, "Noir");
 								}
 							}
-							tour = false;
+							settour(false);
 						}
 					}
 
@@ -196,13 +238,13 @@ void Plateau::Gameplay()
 				}
 			}
 		}
-		if (simule == true && getpasApas() == false )
+		if (getsimule() == true && getpasApas() == false && getfocus() == true)
 		{
 			ecoule += clock.restart();
 			if (ecoule >= ecart) {
-				if (tour == false) {
+				if (gettour() == false) {
 					simuler();
-					tour = true;
+					settour(true);
 				}
 				else {
 					for (int i = 0; i < 10; i++) {
@@ -213,7 +255,7 @@ void Plateau::Gameplay()
 								(*grilles_.rbegin())->setCellule(i, j, "Noir");
 						}
 					}
-					tour = false;
+					settour(false);
 				}
 				ecoule = sf::milliseconds(0);
 			}
@@ -226,3 +268,8 @@ void Plateau::Gameplay()
 
 
 
+void Plateau::sauverNom(ofstream& os, string const &nom) const {
+	if (!os.good())
+		cout << "erreur";
+	os << nom << endl;
+}
