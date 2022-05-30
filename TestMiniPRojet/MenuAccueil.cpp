@@ -8,6 +8,8 @@ MenuAccueil::MenuAccueil() : Menu("Accueil")
 	ajouterOption("quitter", "Quitter la solution");
 }
 
+MenuAccueil::~MenuAccueil(){}
+
 void MenuAccueil::executerOption(const string& nom, bool& fin) {
 	if (nom == "Lancer") Lancer();
 	if (nom == "Charger") {

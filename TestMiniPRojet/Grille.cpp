@@ -11,16 +11,7 @@ Grille::Grille()
 	}
 }
 
-void Grille::operator=(const Grille& g)
-{
-	for (int i = 0; i < 10; i++)
-	{
-		for (int j = 0; j < 10; j++)
-		{
-			tabCellule_[i][j] = g.tabCellule_[i][j];
-		}
-	}
-}
+Grille::~Grille() {}
 
 void Grille::setCellule(int i, int j, string couleur)
 {
@@ -32,16 +23,6 @@ void Grille::sauverGrille(ofstream& os) const {
 		for (int j = 0; j < 10; j++)
 			tabCellule_[i][j].sauver(os);
 }//Permet la sauvegarde de grille
-
-void Grille::chargerGrille(ifstream& is) {
-
-	 while (!is.eof()) 
-	 {
-		 for (int i = 0; i < 10; i++) 
-			 for (int j = 0; j < 10; j++) 
-				 tabCellule_[i][j].charger(is);
-	 }
-}//Permet de charger une grille existente
 
 string Grille::actualiserCellule(int x, int y)
 {

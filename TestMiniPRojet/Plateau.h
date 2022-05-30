@@ -7,7 +7,7 @@
 
 class MenuJeu;
 
-class Plateau
+class Plateau //MIGNON Jossua & CHANAVAT Emilie//
 {
 	MenuJeu* menu_;
 	list<Grille*> grilles_;
@@ -22,8 +22,6 @@ public:
 	Plateau(MenuJeu* m = 0, Grille* g = new Grille);
 	~Plateau();
 	void ajouterGrille(Grille* g) { grilles_.push_back(g); }
-
-
 	void rectangle(sf::RenderWindow& w, size_t i, size_t j, int couleur);
 	void afficher(sf::RenderWindow& w);
 	void initialiser();
@@ -45,7 +43,6 @@ public:
 	bool getpasApas() { return pasApas_; }
 
 	void Gameplay();
-
 	void sauverNom(ofstream& os, string const &nom) const;
 
 

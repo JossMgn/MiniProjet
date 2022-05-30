@@ -5,7 +5,7 @@
 
 class Plateau;
 
-class MenuJeu : public Menu
+class MenuJeu : public Menu //CHANAVAT Emilie & MIGNON Jossua//
 {
 	Plateau* P_;
 	bool quitter_;
@@ -13,7 +13,6 @@ class MenuJeu : public Menu
 public:
 
 	MenuJeu(Grille* g = new Grille);
-	//Plateau* setPlateau(Plateau *P) { return P_ = P; }
 	void executerOption(const string& nom, bool& fin);
 	Plateau* getPlateau() { return P_; }
 	void pasApas();
@@ -21,5 +20,4 @@ public:
 	void retour();
 	void sauver() const;
 	void quitter();
-	//void executer();
 };

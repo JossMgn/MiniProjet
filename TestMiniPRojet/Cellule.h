@@ -5,7 +5,7 @@
 using namespace std;
 
 
-class Cellule
+class Cellule //MIGNON Jossua//
 {
 	string Couleur_;
 	int Position_[2];
@@ -21,6 +21,5 @@ public:
 	void setPosition(int i, int j);
 
 	void sauver(ofstream& os) const;
-	void charger(ifstream& is);
 
 };

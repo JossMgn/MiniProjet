@@ -114,10 +114,8 @@ void Plateau::Gameplay()
 			{
 				if (getsimule() == false)
 				{
-					// on regarde le type de l'évènement...
 					switch (event.type)
 					{
-						// fenêtre fermée
 					case sf::Event::Closed:
 						window.close();
 						break;
@@ -131,7 +129,6 @@ void Plateau::Gameplay()
 							if ((*origine)->getCellule(localPosition.x, localPosition.y).getCouleur() == "Blanc")
 							{
 								(*origine)->setCellule(localPosition.x, localPosition.y, "Noir");
-								//cout << "colonne: " << localPosition.x << " " << "ligne: " << localPosition.y << endl;
 							}
 							else
 							{

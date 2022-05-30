@@ -148,7 +148,6 @@
     <ClInclude Include="Grille.h" />
     <ClInclude Include="Menu.h" />
     <ClInclude Include="MenuAccueil.h" />
-    <ClInclude Include="MenuCharger.h" />
     <ClInclude Include="MenuJeu.h" />
     <ClInclude Include="Plateau.h" />
   </ItemGroup>

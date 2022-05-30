@@ -1,2 +1,15 @@
-﻿  Menu.cpp
+﻿  Cellule.cpp
+  Grille.cpp
+  main.cpp
+C:\Users\jossu\OneDrive\Documents\GitHub\MiniProjet\TestMiniPRojet\MenuAccueil.h(2,10): warning C4067: jetons inattendus après la directive du préprocesseur - saut de ligne attendu
+  Menu.cpp
+  MenuAccueil.cpp
+C:\Users\jossu\OneDrive\Documents\GitHub\MiniProjet\TestMiniPRojet\MenuAccueil.h(2,10): warning C4067: jetons inattendus après la directive du préprocesseur - saut de ligne attendu
+  MenuJeu.cpp
+C:\Users\jossu\OneDrive\Documents\GitHub\MiniProjet\TestMiniPRojet\MenuAccueil.h(2,10): warning C4067: jetons inattendus après la directive du préprocesseur - saut de ligne attendu
+  Plateau.cpp
+C:\Users\jossu\OneDrive\Documents\GitHub\MiniProjet\TestMiniPRojet\MenuAccueil.h(2,10): warning C4067: jetons inattendus après la directive du préprocesseur - saut de ligne attendu
+C:\Users\jossu\OneDrive\Documents\GitHub\MiniProjet\TestMiniPRojet\Plateau.cpp(60,37): warning C4244: 'argument' : conversion de 'size_t' en 'float', perte possible de données
+C:\Users\jossu\OneDrive\Documents\GitHub\MiniProjet\TestMiniPRojet\Plateau.cpp(60,24): warning C4244: 'argument' : conversion de 'size_t' en 'float', perte possible de données
+  Génération de code en cours...
   TestMiniPRojet.vcxproj -> C:\Users\jossu\OneDrive\Documents\GitHub\MiniProjet\TestMiniPRojet\x64\Debug\TestMiniPRojet.exe

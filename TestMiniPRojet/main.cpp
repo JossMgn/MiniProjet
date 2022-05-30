@@ -6,6 +6,5 @@
 int main() {
 	MenuAccueil* m= new MenuAccueil;
 	m->executer();
-	//m->executer();
 	return 0;
 }

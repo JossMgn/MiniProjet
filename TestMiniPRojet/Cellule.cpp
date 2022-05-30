@@ -21,10 +21,3 @@ void Cellule::sauver(ofstream& os) const {
 	os << Position_[0] << endl;
 	os << Position_[1] << endl;
 }
-
-void Cellule::charger(ifstream& is) {
-	getline(is, Couleur_);
-	is >> Position_[0];
-	is >> Position_[1];
-	is.ignore();
-}
