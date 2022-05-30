@@ -16,7 +16,7 @@ MenuLancer::MenuLancer(Plateau * p ) : Menu("Exemple de menu :")
 	ajouterOption("quitter", "Sortir de l'application");
 }
 
-void MenuLancer::executerOption(const string& nom, bool& fin)
+/*void MenuLancer::executerOption(const string& nom, bool& fin)
 {
 	if (nom == "nvlpartie")
 	{
@@ -42,7 +42,7 @@ void MenuLancer::executerOption(const string& nom, bool& fin)
 		Menu::executerOption(nom, fin);
 	}
 
-}
+}*/
 
 
 MenuLancer::~MenuLancer()
