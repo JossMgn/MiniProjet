@@ -6,12 +6,13 @@
 using namespace std;
 
 Plateau::Plateau(MenuJeu* m, Grille* g) {
-	menu_ = 0;
+	menu_ = m;
 	grilles_.push_back(g);
 	pasApas_ = false;
 	focus_=false;
 	simule_=false;
 	tour_=false;
+	sortie_ = false;
 } 
 
 Plateau::~Plateau()
@@ -92,11 +93,8 @@ void Plateau::simuler() {
 void Plateau::Gameplay()
 {
 	//localPosition.x renvoie les colonnes, .y les lignes: c'est inversé !!!
-	//MenuJeu m();
 	string nom;
-	bool saved = false;
 	string choix;
-	//bool pasApas = false;
 
 	list<Grille*>::iterator origine = grilles_.begin();
 	sf::RenderWindow window(sf::VideoMode(600, 600), "Test Grille");
@@ -108,161 +106,110 @@ void Plateau::Gameplay()
 	while (window.isOpen())
 	{
 		sf::Event event;
-		while (window.pollEvent(event))
+		if (getsortie() == true)
+			window.close();
+		else
 		{
-			if (getsimule() == false)
+			while (window.pollEvent(event))
 			{
-				// on regarde le type de l'évènement...
-				switch (event.type)
+				if (getsimule() == false)
 				{
-					// fenêtre fermée
-				case sf::Event::Closed:
-					window.close();
-					break;
-
-				case sf::Event::MouseButtonPressed:
-					if (event.mouseButton.button == sf::Mouse::Left)
+					// on regarde le type de l'évènement...
+					switch (event.type)
 					{
-						sf::Vector2i localPosition = sf::Mouse::getPosition(window);
-						localPosition /= 60;
+						// fenêtre fermée
+					case sf::Event::Closed:
+						window.close();
+						break;
 
-						if ((*origine)->getCellule(localPosition.x, localPosition.y).getCouleur() == "Blanc")
+					case sf::Event::MouseButtonPressed:
+						if (event.mouseButton.button == sf::Mouse::Left)
 						{
-							(*origine)->setCellule(localPosition.x, localPosition.y, "Noir");
-							//cout << "colonne: " << localPosition.x << " " << "ligne: " << localPosition.y << endl;
-						}
-						else
-						{
-							(*origine)->setCellule(localPosition.x, localPosition.y, "Blanc");
-						}
-					}
-					break;
-				case sf::Event::LostFocus:
-					//menu_->afficherMenu();
-					menu_->executer();
-					/*do {
-						cout << "Voulez-vous lancer la simulation ? (o/n): ";
-						cin >> choix;
-					} while (choix != "o" && choix != "n");
-					if (choix == "o") {
-						cout << "Cliquer sur la grille pour lancer: "<<endl;
-						setsimule(true);
-						//cout << "simule = " << simule << endl;
-					}*/
-					break;
-				}
-			}
-			else
-			{
-				switch (event.type)
-				{
-				case sf::Event::Closed:
-					window.close();
-					break;
+							sf::Vector2i localPosition = sf::Mouse::getPosition(window);
+							localPosition /= 60;
 
-				case sf::Event::GainedFocus:
-					setfocus(!getfocus());
-					break;
-
-				case sf::Event::LostFocus:
-					//menu_->afficherMenu();
-					setfocus(!getfocus());
-					menu_->executer();
-					/*cout << "Que voulez vous faire ?: " << endl;
-					cout << "1 - Revenir au debut" << endl;
-					cout << "2 - Pas à pas" << endl;
-					cout << "3 - Sauver la grille" << endl;
-					if (saved == true)
-						cout << "4 - Charger la grille" << endl;
-					cout << endl;
-					cin >> choix;
-					while (choix != "1" && choix != "2" && choix != "3")
-					{
-						cout << "Saisir un champ valide: ";
-						cin >> choix;
-					}
-					if (saved == true) { 
-						while (choix != "1" && choix != "2" && choix != "3" && choix != "4")
-						{
-							cout << "Saisir un champ valide: ";
-							cin >> choix;
-						}
-					}
-					if (choix == "1") {
-						retourDebut();
-						setsimule(false);
-						setfocus(!getfocus());
-					}
-					if (choix == "2") {
-						setpasApas(true);
-						setfocus(!getfocus());
-					}
-					if (choix == "3") {
-						cout << "choisir nom (avec .txt): ";
-						cin >> nom;
-						ofstream os(nom);
-						getorigine()->sauverGrille(os);
-						saved = !saved;
-					}
-					if (choix == "4") {
-						ifstream is(nom);
-						Grille* g = new Grille;
-						g->chargerGrille(is);
-						grilles_.clear();
-						ajouterGrille(g);
-
-					}*/
-					//m.afficherMenu();
-					break;
-
-				case sf::Event::MouseButtonPressed:
-					if (event.mouseButton.button == sf::Mouse::Right && getpasApas() == true) {
-						if (gettour() == false) {
-							simuler();
-							settour(true);
-						}
-						else {
-							for (int i = 0; i < 10; i++) {
-								for (int j = 0; j < 10; j++) {
-									if ((*grilles_.rbegin())->getCellule(i, j).getCouleur() == "Rouge" || (*grilles_.rbegin())->getCellule(i, j).getCouleur() == "Blanc")
-										(*grilles_.rbegin())->setCellule(i, j, "Blanc");
-									else
-										(*grilles_.rbegin())->setCellule(i, j, "Noir");
-								}
+							if ((*origine)->getCellule(localPosition.x, localPosition.y).getCouleur() == "Blanc")
+							{
+								(*origine)->setCellule(localPosition.x, localPosition.y, "Noir");
+								//cout << "colonne: " << localPosition.x << " " << "ligne: " << localPosition.y << endl;
 							}
-							settour(false);
-						}
-					}
-
-
-				}
-			}
-		}
-		if (getsimule() == true && getpasApas() == false && getfocus() == true)
-		{
-			ecoule += clock.restart();
-			if (ecoule >= ecart) {
-				if (gettour() == false) {
-					simuler();
-					settour(true);
-				}
-				else {
-					for (int i = 0; i < 10; i++) {
-						for (int j = 0; j < 10; j++) {
-							if ((*grilles_.rbegin())->getCellule(i, j).getCouleur() == "Rouge" || (*grilles_.rbegin())->getCellule(i, j).getCouleur() == "Blanc")
-								(*grilles_.rbegin())->setCellule(i, j, "Blanc");
 							else
-								(*grilles_.rbegin())->setCellule(i, j, "Noir");
+							{
+								(*origine)->setCellule(localPosition.x, localPosition.y, "Blanc");
+							}
 						}
+						break;
+					case sf::Event::LostFocus:
+						menu_->executer();
+						break;
 					}
-					settour(false);
 				}
-				ecoule = sf::milliseconds(0);
-			}
+				else
+				{
+					switch (event.type)
+					{
+					case sf::Event::Closed:
+						window.close();
+						break;
 
-		}
+					case sf::Event::GainedFocus:
+						setfocus(!getfocus());
+						break;
+
+					case sf::Event::LostFocus:
+						setfocus(!getfocus());
+						menu_->executer();
+
+						break;
+
+					case sf::Event::MouseButtonPressed:
+						if (event.mouseButton.button == sf::Mouse::Right && getpasApas() == true) {
+							if (gettour() == false) {
+								simuler();
+								settour(true);
+							}
+							else {
+								for (int i = 0; i < 10; i++) {
+									for (int j = 0; j < 10; j++) {
+										if ((*grilles_.rbegin())->getCellule(i, j).getCouleur() == "Rouge" || (*grilles_.rbegin())->getCellule(i, j).getCouleur() == "Blanc")
+											(*grilles_.rbegin())->setCellule(i, j, "Blanc");
+										else
+											(*grilles_.rbegin())->setCellule(i, j, "Noir");
+									}
+								}
+								settour(false);
+							}
+						}
+
+
+					}
+				}
+			}
+			if (getsimule() == true && getpasApas() == false && getfocus() == true)
+			{
+				ecoule += clock.restart();
+				if (ecoule >= ecart) {
+					if (gettour() == false) {
+						simuler();
+						settour(true);
+					}
+					else {
+						for (int i = 0; i < 10; i++) {
+							for (int j = 0; j < 10; j++) {
+								if ((*grilles_.rbegin())->getCellule(i, j).getCouleur() == "Rouge" || (*grilles_.rbegin())->getCellule(i, j).getCouleur() == "Blanc")
+									(*grilles_.rbegin())->setCellule(i, j, "Blanc");
+								else
+									(*grilles_.rbegin())->setCellule(i, j, "Noir");
+							}
+						}
+						settour(false);
+					}
+					ecoule = sf::milliseconds(0);
+				}
+
+			}
 			afficher(window);
-		
+		}
 	}
 }//Permet d'associer à chaque évènement son intérêt
 

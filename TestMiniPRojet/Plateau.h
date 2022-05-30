@@ -15,6 +15,7 @@ class Plateau
 	bool focus_;
 	bool simule_;
 	bool tour_;
+	bool sortie_;
 
 public:
 
@@ -23,15 +24,17 @@ public:
 	void ajouterGrille(Grille* g) { grilles_.push_back(g); }
 
 
-	void rectangle(sf::RenderWindow &w, size_t i, size_t j, int couleur);
-	void afficher(sf::RenderWindow &w);
+	void rectangle(sf::RenderWindow& w, size_t i, size_t j, int couleur);
+	void afficher(sf::RenderWindow& w);
 	void initialiser();
 	void simuler();
-	MenuJeu* setMenu(MenuJeu* m) {return menu_ = m; }
+	MenuJeu* setMenu(MenuJeu* m) { return menu_ = m; }
 	void retourDebut();
 
 	Grille* getorigine() { return (*grilles_.begin()); }
 
+	bool setsortie(bool s) { return sortie_ = s; }
+	bool getsortie() { return sortie_; }
 	bool setfocus(bool focus) { return focus_ = focus; }
 	bool getfocus() { return focus_; }
 	bool settour(bool tour) { return tour_ = tour; }

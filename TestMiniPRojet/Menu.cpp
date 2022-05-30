@@ -69,7 +69,7 @@ void Menu::executerOption(const string& nom, bool& fin)
     if (nom == "quitter") fin = quitter();
     else if (nom == "aide") aide();
     else {
-        cout << "Option inexistante" << endl;
+        cout << "Retour" << endl;
         system("pause");
     }
 }
